@@ -1,13 +1,6 @@
 ﻿using Dominio;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
-using System.Data.Entity.ModelConfiguration.Conventions;
-using Servicios.Interfaces;
 
 namespace Servicios.DB
 {
@@ -50,6 +43,7 @@ namespace Servicios.DB
             modelBuilder.Entity<Paciente>().Property(paciente => paciente.Apellido).IsRequired().HasMaxLength(100);
             modelBuilder.Entity<Paciente>().Property(paciente => paciente.FechaNacimiento).IsRequired();
             modelBuilder.Entity<Paciente>().HasMany(paciente => paciente.Turnos).WithRequired(turno => turno.Paciente); //un paciente tiene muchos turnos
+
             #endregion
 
 
@@ -72,10 +66,10 @@ namespace Servicios.DB
 
             modelBuilder.Entity<EstudioClinico>().ToTable("EstudioClinico").HasKey(EstudioClinico => EstudioClinico.Id);
             modelBuilder.Entity<EstudioClinico>().Property(EstudioClinico => EstudioClinico.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+            modelBuilder.Entity<EstudioClinico>().HasRequired(EstudioClinico => EstudioClinico.Turno).WithOptional(Turno => Turno.EstudioClinico).Map(x => { x.MapKey("Turno_Id"); });
             modelBuilder.Entity<EstudioClinico>().HasMany(EstudioClinico => EstudioClinico.Secciones).WithMany(Secciones => Secciones.EstudiosClinicos);
 
             #endregion
-
 
             #region Turnos
 
@@ -84,7 +78,6 @@ namespace Servicios.DB
             modelBuilder.Entity<Turno>().Property(turno => turno.Fecha).IsRequired();
             modelBuilder.Entity<Turno>().HasRequired(turno => turno.Paciente);
             modelBuilder.Entity<Turno>().HasRequired(turno => turno.Tecnico);
-            modelBuilder.Entity<Turno>().HasOptional(turno => turno.EstudioClinico).WithRequired(estudioClinico => estudioClinico.Turno).Map(x => { x.MapKey("Turno_Id"); });
 
             #endregion
 

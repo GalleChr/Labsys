@@ -10,6 +10,7 @@ namespace Servicios.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
+            AutomaticMigrationDataLossAllowed = true;
             ContextKey = "Servicios.DB.ConexionBD";
         }
 
