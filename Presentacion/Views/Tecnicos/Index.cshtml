@@ -1,0 +1,61 @@
+﻿@model Presentacion.ViewModels.Tecnicos.TecnicosViewModel
+@{
+    ViewBag.Title = "Tecnicos";
+}
+
+<div class="container" id="TecnicosContainer">
+    <h4 class="text-left mt-5">
+        Tecnicos
+
+    </h4>
+
+    <div class="container">
+        <div class="row">
+            <div class="well">
+                <form>
+                    <fieldset>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="query" id="query" placeholder="Apellido">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Buscar</button>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    @if (Model.Tecnicos.Any())
+    {
+        <div class="container">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Apellido y Nombre</th>
+                            <th scope="col">DNI</th>
+                            <th scope="col">Legajo</th>
+                            <th scope="col">Edad (Fecha Nacimiento)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var tecnico in Model.Tecnicos.OrderBy(tecnico => tecnico.ApellidoNombre))
+                        {
+                        <tr>
+                            <td>@tecnico.Id</td>
+                            <td>@tecnico.ApellidoNombre</td>
+                            <td>@tecnico.Dni</td>
+                            <td>@tecnico.Legajo</td>
+                            <td>@tecnico.Edad</td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-primary">No se encontraron resultados de tecnicos.</div>
+    }
+</div>

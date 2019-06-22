@@ -1,0 +1,76 @@
+﻿@model Presentacion.ViewModels.Pacientes.PacientesViewModel
+@{
+    ViewBag.Title = "Pacientes";
+}
+
+
+<div class="container" id="PacientesContainer">
+    <h4 class="text-center mt-5">
+        Pacientes
+    </h4>
+
+    @*Nuevo*@
+    <div class="row my-5">
+        <div class="col-2">
+            <a class="btn btn-dark form-control" href="@Url.RouteUrl("Pacientes_Nuevo")">
+                Nuevo Paciente
+            </a>
+        </div>
+    </div>
+
+    @* Buscador *@
+    <div class="container">
+        <div class="row my-5">
+            <div class="well">
+                <form>
+                    <fieldset>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="query" id="query" placeholder="Apellido">
+                        </div>
+                        <button type="submit" class="btn btn- btn-primary">Buscar</button>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+    @if (Model.Pacientes.Any())
+    {
+        @* Listado *@
+        <div class="card">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Apellido y Nombre</th>
+                            <th scope="col">DNI</th>
+                            <th scope="col">Codigo de Paciente</th>
+                            <th scope="col">Edad (Fecha Nacimiento)</th>
+                            <th scope="col">Turnos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var paciente in Model.Pacientes.OrderBy(paciente => paciente.ApellidoNombre))
+                        {
+                            <tr>
+                                <td>@paciente.Id</td>
+                                <td>@paciente.ApellidoNombre</td>
+                                <td>@paciente.Dni</td>
+                                <td>@paciente.CodPaciente</td>
+                                <td>@paciente.Edad</td>
+                                <td>@paciente.ContTurnos</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-primary">No se encontraron resultados de pacientes.</div>
+    }
+</div>
