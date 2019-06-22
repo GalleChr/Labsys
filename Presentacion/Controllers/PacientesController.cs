@@ -41,7 +41,7 @@ namespace Presentacion.Controllers
         }
 
 
-        [HttpGet]
+        [HttpPost]
         [Route("Nuevo", Name = "Pacientes_Nuevo")]
         public ActionResult Nuevo()
         {
@@ -51,7 +51,6 @@ namespace Presentacion.Controllers
                     FechaNacimiento = DateTime.Now
                 });
         }
-
 
         [HttpPost]
         [Route("Nuevo", Name = "Pacientes_Nuevo_Post")]
