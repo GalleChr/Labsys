@@ -6,7 +6,7 @@ namespace Dominio
 {
     public class Paciente
     {
-        
+
         #region Attributes
 
         public int Id { get; set; }
@@ -21,7 +21,10 @@ namespace Dominio
 
         #region Constructor
 
-        public Paciente() { }
+        public Paciente()
+        {
+            Turnos = new HashSet<Turno>();
+        }
 
         #endregion
     }

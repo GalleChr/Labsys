@@ -41,7 +41,7 @@ namespace Presentacion.Controllers
         }
 
 
-        [HttpPost]
+        [HttpGet]
         [Route("Nuevo", Name = "Pacientes_Nuevo")]
         public ActionResult Nuevo()
         {
@@ -56,8 +56,8 @@ namespace Presentacion.Controllers
         [Route("Nuevo", Name = "Pacientes_Nuevo_Post")]
         public ActionResult Nuevo(NuevoPacienteViewModel model)
         {
-            bool containsIntNom = model.Nombre.Any(char.IsDigit);
-            bool containsIntApe = model.Apellido.Any(char.IsDigit);
+      //      bool containsIntNom = model.Nombre.Any(char.IsDigit);
+      //      bool containsIntApe = model.Apellido.Any(char.IsDigit);
 
 
             if (model.Dni <= 0)
@@ -65,13 +65,13 @@ namespace Presentacion.Controllers
 
             if (string.IsNullOrWhiteSpace(model.Nombre))
                 ModelState.AddModelError("Nombre", "Debe ingresar un nombre");
-            else if (containsIntNom)
-                ModelState.AddModelError("Nombre", "No se deben ingresar numeros en el campo Nombre");
+      //      else if (containsIntNom)
+      //          ModelState.AddModelError("Nombre", "No se deben ingresar numeros en el campo Nombre");
 
             if (string.IsNullOrWhiteSpace(model.Apellido))
                 ModelState.AddModelError("Apellido", "Debe ingresar un apellido");
-            else if (containsIntApe)
-                ModelState.AddModelError("Apellido", "No se deben ingresar numeros en el campo Apellido");
+     //       else if (containsIntApe)
+     //           ModelState.AddModelError("Apellido", "No se deben ingresar numeros en el campo Apellido");
 
             if (model.FechaNacimiento == null)
                 ModelState.AddModelError("FechaNacimiento", "Debe ingresar fecha de nacimiento");
