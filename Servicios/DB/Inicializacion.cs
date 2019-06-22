@@ -1,8 +1,6 @@
 ﻿using Dominio;
 using System;
-using System.Collections.Generic;
 using System.Data.Entity;
-using System.Data.Entity.Migrations;
 using System.Linq;
 
 namespace Servicios.DB
@@ -12,13 +10,7 @@ namespace Servicios.DB
     {
         public Inicializacion()
         {
-            //AutomaticMigrationsEnabled = true;
-            //AutomaticMigrationDataLossAllowed = true;
-            //ContextKey = "Servicios.DB.ConexionBD";
         }
-
-
-
 
         protected override void Seed(ConexionBD database)
         {
@@ -168,7 +160,7 @@ namespace Servicios.DB
             database.Secciones.Attach(s2);
 
             database.SaveChanges();
-           
+
 
             #endregion
         }

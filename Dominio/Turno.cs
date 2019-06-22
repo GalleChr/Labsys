@@ -10,9 +10,9 @@ namespace Dominio
 
         public int Id { get; set; }
         public Estado Estado { get; set; }
-        public Paciente Paciente { get; set; }
-        public Tecnico Tecnico { get; set; }
-    public virtual EstudioClinico EstudioClinico { get; set; }
+        public virtual Paciente Paciente { get; set; }
+        public virtual Tecnico Tecnico { get; set; }
+        public virtual EstudioClinico EstudioClinico { get; set; }
         public DateTime Fecha { get; set; }
 
         #endregion
@@ -22,10 +22,5 @@ namespace Dominio
         public Turno() { }
 
         #endregion
-
-
-
-
-
     }
 }

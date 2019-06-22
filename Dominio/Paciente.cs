@@ -21,7 +21,10 @@ namespace Dominio
 
         #region Constructor
 
-        public Paciente() { }
+        public Paciente()
+        {
+            Turnos = new HashSet<Turno>();
+        }
 
         #endregion
     }

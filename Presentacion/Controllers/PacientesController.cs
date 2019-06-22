@@ -41,7 +41,7 @@ namespace Presentacion.Controllers
         }
 
 
-        [HttpPost]
+        [HttpGet]
         [Route("Nuevo", Name = "Pacientes_Nuevo")]
         public ActionResult Nuevo()
         {
