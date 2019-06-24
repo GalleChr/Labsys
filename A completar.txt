@@ -1,0 +1,14 @@
+
+turnos tienen boton cancelar, si pasan de la fecha.Now confirmados
+turnos buscar entre fechas
+nuevo turno (incluye nuevo EC)
+
+pacientes buscar por apellido
+paciente tiene boton que muestra historial de EC
+
+
+
+
+
+
+ver tema partial views

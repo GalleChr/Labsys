@@ -53,7 +53,7 @@ namespace Presentacion.Controllers
         }
 
         [HttpPost]
-        [Route("Nuevo", Name = "Pacientes_Nuevo_Post")]
+        [Route("Nuevo", Name = "Pacientes_Nuevo")]    //Consultar con el profe
         public ActionResult Nuevo(NuevoPacienteViewModel model)
         {
       //      bool containsIntNom = model.Nombre.Any(char.IsDigit);

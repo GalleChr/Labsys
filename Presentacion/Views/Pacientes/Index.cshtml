@@ -10,15 +10,18 @@
     </h4>
 
     @*Nuevo*@
-    <div class="row my-5">
-        <div class="col-2">
-            <a class="btn btn-primary btn-lg active" role="button" aria-pressed="true" href="@Url.Action("Nuevo","Pacientes")">
-                Nuevo Paciente
-            </a>
+
+    <div class="container">
+        <div class="row">
+
+            <h2 class="text-center"><button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Nuevo", "Pacientes")'">Nuevo Paciente</button></h2>
+
         </div>
     </div>
 
+
     @* Buscador *@
+
     <div class="container">
         <div class="row my-5">
             <div class="well">
@@ -35,10 +38,10 @@
     </div>
 
 
+    @* Listado *@
 
     @if (Model.Pacientes.Any())
     {
-        @* Listado *@
         <div class="card">
             <div class="table-responsive">
                 <table class="table table-hover">

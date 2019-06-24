@@ -1,0 +1,12 @@
+https://docs.microsoft.com/en-us/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/sorting-filtering-and-paging-with-the-entity-framework-in-an-asp-net-mvc-application
+
+https://docs.microsoft.com/en-us/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/creating-an-entity-framework-data-model-for-an-asp-net-mvc-application
+
+https://docs.microsoft.com/en-us/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application
+
+
+
+
+"Data Source=NB-SNAKE;Initial Catalog=Taller4TP;Integrated Security=True;"
+
+"Data Source=(LocalDb)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Taller4TPv1.mdf;Initial Catalog=Taller4TPv1;Integrated Security=True"
