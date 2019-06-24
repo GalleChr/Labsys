@@ -29,29 +29,18 @@ namespace Servicios
             }
         }
 
-        //public void Test()
-        //{
-        //    using (var database = new ConexionBD())
-        //    {
-        //        var turno1 = database.Turnos.Find(1);
-        //        var seccion1 = database.Secciones.Find(1);
-        //        var seccion2 = database.Secciones.Find(2);
+        public IEnumerable<EstudioClinico> ObtenerEstudiosClinicosPorPaciente(int id)
+        {
+            using (var database = new ConexionBD())
+            {
+                return database
+                    .EstudiosClinicos
+                    .Include(ec => ec.Turno)
+                    .Include(ec => ec.Secciones)
+                    .Where(ec => ec.Turno.Paciente.Id.Equals(id))
 
-        //        var estudioClinico = new EstudioClinico()
-        //        {
-        //            Turno = turno1
-        //        };
-
-        //        estudioClinico.Secciones.Add(seccion1);
-        //        estudioClinico.Secciones.Add(seccion2);
-
-        //        database.EstudiosClinicos.Add(estudioClinico);
-        //        database.Turnos.Attach(turno1);
-        //        database.Secciones.Attach(seccion1);
-        //        database.Secciones.Attach(seccion2);
-        //        database.SaveChanges();
-        //    }
-
-        //}
-    }
-}
+                    .ToList();
+            }
+        }
+    }   
+   }

@@ -71,30 +71,18 @@ namespace Servicios
             }
         }
 
-        public static IEnumerable<Paciente> ObtenerPacientesPorApellido(string apellido)
+        public IEnumerable<Paciente> ObtenerPacientesPorApellido(string apellido)
         {
-            var database = new ConexionBD();
-            List<Paciente> list = new List<Paciente>();
-            list = database.Pacientes.Where(b => b.Apellido.Contains(apellido)).ToList();
 
+            using (var database = new ConexionBD())
+            {
+                return database
+                    .Pacientes
+                    .Include(paciente => paciente.Turnos)
+                    .Where(paciente => paciente.Apellido.Contains(apellido))
 
-            IEnumerable<Paciente> pacientes = list;
-            return pacientes;
-
-
+                    .ToList();
+            }
         }
-
-        /*
-         * 
-        public int Id { get; set; }
-        public long Dni { get; set; }
-        public string Nombre { get; set; }
-        public string Apellido { get; set; }
-        public DateTime FechaNacimiento { get; set; }
-        public string CodPaciente { get; set; }
-        public virtual ICollection<Turno> Turnos { get; set; }
-         * */
-
-
     }
 }

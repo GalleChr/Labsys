@@ -11,6 +11,8 @@ namespace Servicios.Interfaces
     {
         IEnumerable<Paciente> ObtenerPacientes();
 
+        IEnumerable<Paciente> ObtenerPacientesPorApellido(string apellido);
+
         void AddPaciente(long dni, string nombre, string apellido, DateTime fecNac);
 
         void DeletePaciente(int id);

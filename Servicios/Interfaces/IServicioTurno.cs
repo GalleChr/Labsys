@@ -10,5 +10,13 @@ namespace Servicios.Interfaces
     public interface IServicioTurno
     {
         IEnumerable<Turno> ObtenerTurnos();
+
+        void DeleteTurno(int id);
+
+        IEnumerable<Turno> TurnosEntreFechas(DateTime inicio, DateTime fin);
+
+        void SetEstadoCancelado(int id);
+
+        void SetEstadoConfirmado();
     }
 }

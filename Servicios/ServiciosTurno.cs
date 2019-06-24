@@ -56,5 +56,55 @@ namespace Servicios
                     .ToList();
             }
         }
+
+        public IEnumerable<Turno> TurnosEntreFechas(DateTime inicio, DateTime fin) //REVISAR CON PROFE
+        {
+            using (var database = new ConexionBD())
+            {
+                return database
+                    .Turnos
+                    .Include(turno => turno.Paciente)
+                    .Include(turno => turno.Tecnico)
+                    .Include(turno => turno.Estado)
+                    .Where(turno => turno.Fecha >= inicio && turno.Fecha <= fin)
+
+                    .ToList();
+            }
+        }
+
+        public void SetEstadoCancelado(int id)
+        {
+
+            using (var database = new ConexionBD())
+            {
+                var turno = database.Turnos.Find(id);
+
+                turno.Estado = Estado.CANCELADO;
+
+                database.Save();
+            }
+
+        }
+
+        public void SetEstadoConfirmado() // REVISAR CON PROFE
+        {
+            using (var database = new ConexionBD())
+            {
+                IEnumerable<Turno> turnos = database.Turnos;
+
+                foreach (Turno turno in turnos)
+                {
+                    if (turno.Fecha > DateTime.Now)
+                    {
+                        turno.Estado = Estado.CONFIRMADO;
+                    }
+                } 
+
+                database.Save();
+            }
+
+
+        }
     }
 }
+
