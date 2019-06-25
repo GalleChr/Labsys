@@ -9,6 +9,7 @@ paciente tiene boton que muestra historial de EC
 
 
 
-
-
-ver tema partial views
+Ver buscador por apellido, redireccion del boton
+Ver servicios de paciente, tecnico y turnos
+Ver carga de paciente nuevo, Chrome lo procesa pero no se carga
+Ver footer queda muy arriba

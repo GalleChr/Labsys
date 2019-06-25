@@ -188,6 +188,8 @@
     <Content Include="Views\Turnos\Index.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Pacientes\Nuevo.cshtml" />
+    <Content Include="Views\Pacientes\TurnosPaciente.cshtml" />
+    <Content Include="Views\Pacientes\BusquedaPacientes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -42,6 +42,19 @@ namespace Presentacion.Controllers
 
 
         [HttpGet]
+        [Route(Name = "Pacientes_Apellido")]
+        public ActionResult PacienteApellido(string apellido)
+        {
+            var model = new PacientesViewModel()
+            {
+                Pacientes = _ServicioPaciente.ObtenerPacientesPorApellido(apellido).Select(x => new PacienteViewItem(x))
+            };
+
+            return View(model);
+        }
+
+
+        [HttpGet]
         [Route("Nuevo", Name = "Pacientes_Nuevo")]
         public ActionResult Nuevo()
         {
