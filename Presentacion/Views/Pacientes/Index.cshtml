@@ -4,12 +4,12 @@
 }
 
 
-
-
 <div class="container" id="PacientesContainer">
     <h4 class="text-center mt-5">
         Pacientes
     </h4>
+
+
 
     @*Nuevo*@
 
@@ -26,19 +26,21 @@
 
     <div class="container">
         <div class="row my-5">
-            <div class="well">
-                <form>
-                    <fieldset>
-                        <div class="form-group">
-                            <input type="text" class="form-control" name="query" id="query" placeholder="Apellido">
-                        </div>
-                        <button type="submit" class="btn btn- btn-primary" onclick="location.href='@Url.Action("BusquedaPacientes", "Pacientes")'">Buscar</button>
-                    </fieldset>
-                </form>
+            <div class="col-xs-offset-2 col-xs-8">
+                <div class="well">
+                    @using (Html.BeginForm(Url.Action("Index", "Pacientes", FormMethod.Get)))
+                    {
+                        <fieldset>
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="apellido" id="apellido" placeholder="Apellido">
+                            </div>
+                            <button type="submit" class="btn btn- btn-primary">Buscar</button>
+                        </fieldset>
+                    }
+                </div>
             </div>
         </div>
     </div>
-
 
     @* Listado *@
 
@@ -60,20 +62,24 @@
                     <tbody>
                         @foreach (var paciente in Model.Pacientes.OrderBy(paciente => paciente.ApellidoNombre))
                         {
-                        <tr>
-                            <td>@paciente.Id</td>
-                            <td>@paciente.ApellidoNombre</td>
-                            <td>@paciente.Dni</td>
-                            <td>@paciente.CodPaciente</td>
-                            <td>@paciente.Edad</td>
-                            <td>@paciente.ContTurnos - <a href="@Url.Action("TurnosPaciente", "Pacientes", new { dni = paciente.Dni })" class="btn btn-link">
-                                                        <i class="fas fa-book-medical" data-toggle="Ver" data-placement="top" title="Ver"></i></a></td>
-                            <td>
-                                @Html.ActionLink("Editar", "Pacientes", new { id = paciente.Id }) |
-                                @Html.ActionLink("Eliminar", "Pacientes", new { id = paciente.Id })
+                            <tr>
+                                <td>@paciente.Id</td>
+                                <td>@paciente.ApellidoNombre</td>
+                                <td>@paciente.Dni</td>
+                                <td>@paciente.CodPaciente</td>
+                                <td>@paciente.Edad</td>
+                                <td>
+                                    @paciente.ContTurnos - <a href="@Url.Action("TurnosPaciente", "Pacientes", new { dni = paciente.Dni })" class="btn btn-link">
+                                    <i class="fas fa-book-medical" data-toggle="Ver" data-placement="top" title="Ver"></i>
+                                </a>
                             </td>
+                                <td>
+                                    <a class="btn btn-link" href="@Url.Action("Editar","Pacientes", new { id = paciente.Id})">Editar</a> 
+                                    |
+                                    <a class="btn btn-link" href="@Url.Action("Eliminar","Pacientes", new { id = paciente.Id})">Eliminar</a>
+                                </td>
                         </tr>
-                        }
+                    }
                     </tbody>
                 </table>
             </div>
@@ -83,4 +89,5 @@
     {
         <div class="alert alert-primary">No se encontraron resultados de pacientes.</div>
     }
+
 </div>

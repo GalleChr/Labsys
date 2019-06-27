@@ -4,29 +4,36 @@
 }
 
 <div class="container" id="TecnicosContainer">
-    <h4 class="text-left mt-5">
+    <h4 class="text-center mt-5">
         Tecnicos
-
     </h4>
 
+
+    @* Buscador *@
+
     <div class="container">
-        <div class="row">
-            <div class="well">
-                <form>
-                    <fieldset>
-                        <div class="form-group">
-                            <input type="text" class="form-control" name="query" id="query" placeholder="Apellido">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Buscar</button>
-                    </fieldset>
-                </form>
+        <div class="row my-5">
+            <div class="col-xs-offset-2 col-xs-8">
+                <div class="well">
+                    @using (Html.BeginForm(Url.Action("Index", "Tecnicos", FormMethod.Get)))
+                    {
+                        <fieldset>
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="apellido" id="apellido" placeholder="Apellido">
+                            </div>
+                            <button type="submit" class="btn btn- btn-primary">Buscar</button>
+                        </fieldset>
+                    }
+                </div>
             </div>
         </div>
     </div>
 
+    @* Listado *@
+
     @if (Model.Tecnicos.Any())
     {
-        <div class="container">
+        <div class="card">
             <div class="table-responsive">
                 <table class="table table-hover">
                     <thead class="thead-dark">
@@ -36,6 +43,7 @@
                             <th scope="col">DNI</th>
                             <th scope="col">Legajo</th>
                             <th scope="col">Edad (Fecha Nacimiento)</th>
+
                         </tr>
                     </thead>
                     <tbody>
@@ -47,6 +55,11 @@
                             <td>@tecnico.Dni</td>
                             <td>@tecnico.Legajo</td>
                             <td>@tecnico.Edad</td>
+
+                            <td>
+                                @Html.ActionLink("Editar", "Tecnicos", new { id = tecnico.Id }) |
+                                @Html.ActionLink("Eliminar", "Tecnicos", new { id = tecnico.Id })
+                            </td>
                         </tr>
                         }
                     </tbody>
@@ -58,4 +71,5 @@
     {
         <div class="alert alert-primary">No se encontraron resultados de tecnicos.</div>
     }
+
 </div>

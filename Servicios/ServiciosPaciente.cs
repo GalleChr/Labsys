@@ -19,7 +19,7 @@ namespace Servicios
             using (var database = new ConexionBD())
             {
                 database.Pacientes
-                    .AddOrUpdate(new Dominio.Paciente()
+                    .Add(new Dominio.Paciente()
                     {
                         Dni = dni,
                         Nombre = nombre,
@@ -59,29 +59,24 @@ namespace Servicios
             }
         }
 
-        public IEnumerable<Paciente> ObtenerPacientes()
+        public IEnumerable<Paciente> ObtenerPacientes(string apellido)
         {
             using (var database = new ConexionBD())
             {
+                if(!string.IsNullOrWhiteSpace(apellido))
+                {
+                    return database
+                        .Pacientes
+                        .Include(Paciente => Paciente.Turnos)
+                        .Where(paciente => paciente.Apellido.StartsWith(apellido))
+                        .ToList();
+                }
+
                 return database
                     .Pacientes
                     .Include(Paciente => Paciente.Turnos)
-
                     .ToList();
-            }
-        }
 
-        public IEnumerable<Paciente> ObtenerPacientesPorApellido(string apellido)
-        {
-
-            using (var database = new ConexionBD())
-            {
-                return database
-                    .Pacientes
-                    .Include(paciente => paciente.Turnos)
-                    .Where(paciente => paciente.Apellido.Contains(apellido))
-
-                    .ToList();
             }
         }
     }
