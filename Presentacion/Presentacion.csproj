@@ -140,9 +140,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\EstudiosClinicos\EstudioClinicoViewItem.cs" />
     <Compile Include="ViewModels\EstudiosClinicos\EstudiosClinicosViewModel.cs" />
+    <Compile Include="ViewModels\Pacientes\EditarPacienteViewModel.cs" />
     <Compile Include="ViewModels\Pacientes\NuevoPacienteViewModel.cs" />
     <Compile Include="ViewModels\Pacientes\PacientesViewModel.cs" />
     <Compile Include="ViewModels\Pacientes\PacienteViewItem.cs" />
+    <Compile Include="ViewModels\Tecnicos\NuevoTecnicoViewModel.cs" />
     <Compile Include="ViewModels\Tecnicos\TecnicosViewModel.cs" />
     <Compile Include="ViewModels\Tecnicos\TecnicoViewItem.cs" />
     <Compile Include="ViewModels\Turnos\TurnosViewModel.cs" />
@@ -239,6 +241,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Views\Pacientes\Index.cshtml" />
     <Content Include="webfonts\fa-brands-400.svg" />
     <Content Include="webfonts\fa-regular-400.svg" />
     <Content Include="webfonts\fa-solid-900.svg" />
@@ -283,7 +286,6 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Tecnicos\Index.cshtml" />
-    <Content Include="Views\Pacientes\Index.cshtml" />
     <Content Include="Views\EstudiosClinicos\Index.cshtml" />
     <Content Include="Views\Turnos\Index.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
@@ -303,6 +305,9 @@
     <Content Include="webfonts\fa-solid-900.woff2" />
     <Content Include="Views\Pacientes\Editar.cshtml" />
     <Content Include="Views\Pacientes\Eliminar.cshtml" />
+    <Content Include="Views\Tecnicos\Editar.cshtml" />
+    <Content Include="Views\Tecnicos\Nuevo.cshtml" />
+    <Content Include="Views\Tecnicos\Eliminar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

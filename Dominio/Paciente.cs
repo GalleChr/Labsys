@@ -14,7 +14,6 @@ namespace Dominio
         public string Nombre { get; set; }
         public string Apellido { get; set; }
         public DateTime FechaNacimiento { get; set; }
-        public string CodPaciente { get; set; }
         public virtual ICollection<Turno> Turnos { get; set; }
 
         #endregion

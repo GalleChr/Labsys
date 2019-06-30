@@ -37,11 +37,11 @@ namespace Servicios.DB
 
             #region Pacientes Seed
 
-            database.Pacientes.Add(new Paciente() { Nombre = "Paci1", Apellido = "Ente1", FechaNacimiento = DateTime.Now.AddDays(-5000), CodPaciente = "P1", Dni = 123456779 });
-            database.Pacientes.Add(new Paciente() { Nombre = "Paci2", Apellido = "Ente2", FechaNacimiento = DateTime.Now.AddDays(-6000), CodPaciente = "P2", Dni = 123456778 });
-            database.Pacientes.Add(new Paciente() { Nombre = "Paci3", Apellido = "Ente3", FechaNacimiento = DateTime.Now.AddDays(-7000), CodPaciente = "P3", Dni = 123456777 });
-            database.Pacientes.Add(new Paciente() { Nombre = "Paci4", Apellido = "Ente4", FechaNacimiento = DateTime.Now.AddDays(-8000), CodPaciente = "P4", Dni = 123456776 });
-            database.Pacientes.Add(new Paciente() { Nombre = "Paci5", Apellido = "Ente5", FechaNacimiento = DateTime.Now.AddDays(-9000), CodPaciente = "P5", Dni = 123456775 });
+            database.Pacientes.Add(new Paciente() { Nombre = "Paci1", Apellido = "Ente1", FechaNacimiento = DateTime.Now.AddDays(-5000), Dni = 123456779 });
+            database.Pacientes.Add(new Paciente() { Nombre = "Paci2", Apellido = "Ente2", FechaNacimiento = DateTime.Now.AddDays(-6000), Dni = 123456778 });
+            database.Pacientes.Add(new Paciente() { Nombre = "Paci3", Apellido = "Ente3", FechaNacimiento = DateTime.Now.AddDays(-7000), Dni = 123456777 });
+            database.Pacientes.Add(new Paciente() { Nombre = "Paci4", Apellido = "Ente4", FechaNacimiento = DateTime.Now.AddDays(-8000), Dni = 123456776 });
+            database.Pacientes.Add(new Paciente() { Nombre = "Paci5", Apellido = "Ente5", FechaNacimiento = DateTime.Now.AddDays(-9000), Dni = 123456775 });
 
             database.SaveChanges();
 

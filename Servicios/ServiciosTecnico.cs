@@ -60,14 +60,22 @@ namespace Servicios
             }
         }
 
-        public IEnumerable<Tecnico> ObtenerTecnicos()
+        public IEnumerable<Tecnico> ObtenerTecnicos(string apellido)
         {
             using (var database = new ConexionBD())
             {
+                if (!string.IsNullOrWhiteSpace(apellido))
+                {
+                    return database
+                        .Tecnicos
+                        .Where(tecnico => tecnico.Apellido.StartsWith(apellido))
+                        .ToList();
+                }
+
                 return database
                     .Tecnicos
-
                     .ToList();
+
             }
         }
     }

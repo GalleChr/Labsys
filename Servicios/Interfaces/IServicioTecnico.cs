@@ -9,7 +9,7 @@ namespace Servicios.Interfaces
 {
     public interface IServicioTecnico
     {
-        IEnumerable<Tecnico> ObtenerTecnicos();
+        IEnumerable<Tecnico> ObtenerTecnicos(string apellido);
 
         void AddTecnico(long dni, string nombre, string apellido, DateTime fecNac, string legajo);
 

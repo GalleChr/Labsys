@@ -25,7 +25,6 @@ namespace Presentacion.ViewModels.Pacientes
             ApellidoNombre = $"{paciente.Apellido}, {paciente.Nombre}";
             Dni = paciente.Dni;
             Edad = $"{edad} años ({paciente.FechaNacimiento.ToString("dd/MM/yyyy")})";
-            CodPaciente = paciente.CodPaciente;
             ContTurnos = paciente.Turnos.Count(); 
         }
     }

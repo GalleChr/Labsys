@@ -1,10 +1,13 @@
 ﻿
+using Dominio;
 using Presentacion.ViewModels.Pacientes;
 using Servicios;
+using Servicios.DB;
 using Servicios.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -46,13 +49,13 @@ namespace Presentacion.Controllers
         {
             return View(
                 new NuevoPacienteViewModel()
-                {
-                    FechaNacimiento = DateTime.Now
+            {
+                FechaNacimiento = DateTime.Now
                 });
         }
 
         [HttpPost]
-        [Route("Nuevo", Name = "Pacientes_Nuevo")]    //Consultar con el profe
+        [Route("Nuevo", Name = "Pacientes_Nuevo_Post")]    //Consultar con el profe
         public ActionResult Nuevo(NuevoPacienteViewModel model)
         {
             bool containsIntNom = false;
@@ -97,20 +100,64 @@ namespace Presentacion.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        [Route("Eliminar", Name = "Pacientes_Eliminar")]
+        public ActionResult Eliminar(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var database = new ConexionBD();
+
+                Paciente paciente = database.Pacientes.Find(id);
+            if (paciente == null)
+            {
+                return HttpNotFound();
+            }
+            return View(paciente);
+        }
+
 
         [HttpPost]
-        [Route("Eliminar", Name = "Pacientes_Eliminar")]
+        [Route("Eliminar", Name = "Pacientes_Eliminar_Post")]
         public ActionResult Eliminar(int id)
         {
-            try
-            {
-                _ServicioPaciente.DeletePaciente(id);
-            }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError("", ex.Message);
-            }
+            _ServicioPaciente.DeletePaciente(id);
+
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        [Route("Editar", Name = "Pacientes_Editar")]
+        public ActionResult Editar(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var database = new ConexionBD();
+
+            Paciente paciente = database.Pacientes.Find(id);
+            if (paciente == null)
+            {
+                return HttpNotFound();
+            }
+            return View(paciente);
+        }
+
+
+        [HttpPost]
+        [Route("Editar", Name = "Pacientes_Editar_Post")]
+        public ActionResult Editar(int id, long dni, string nombre, string apellido, DateTime fecNac)
+        {
+            _ServicioPaciente.UpdatePaciente(id,dni,nombre,apellido,fecNac);
+
+            return RedirectToAction("Index");
+        }
+
+
     }
 }

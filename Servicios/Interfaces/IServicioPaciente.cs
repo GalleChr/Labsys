@@ -15,7 +15,7 @@ namespace Servicios.Interfaces
 
         void DeletePaciente(int id);
 
-        void UpdatePaciente(int id, long dni, string nombre, string apellido, DateTime fecNac, string codPac);
+        void UpdatePaciente(int id, long dni, string nombre, string apellido, DateTime fecNac);
 
     }
 }

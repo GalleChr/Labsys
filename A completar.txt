@@ -1,15 +1,29 @@
 
-turnos tienen boton cancelar, si pasan de la fecha.Now confirmados
-turnos buscar entre fechas
-nuevo turno (incluye nuevo EC)
+PENDIENTES
 
-pacientes buscar por apellido
-paciente tiene boton que muestra historial de EC
+Turnos tienen boton cancelar. Pasan a Cancelados
+Turnos que pasen de Date.Now pasan a Confirmados
+Turnos buscar entre fechas
+Turno nuevo (incluye nuevo EstCli) / Limitar fecha de a 1 hora
+
+Paciente tiene boton que muestra historial de EC
+
+Tecnico editar
+
+Estudio Clinico buscar por Fecha
+
+
+A REVISAR
+
+Fecha en Eliminar esta en ingles
+Editar paciente crashea en Controller
 
 
 
 
-Ver buscador por apellido, redireccion del boton
-Ver servicios de paciente, tecnico y turnos
-Ver carga de paciente nuevo, Chrome lo procesa pero no se carga
-Ver footer queda muy arriba
+
+
+
+
+
+

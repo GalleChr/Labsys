@@ -19,7 +19,7 @@ namespace Servicios
             using (var database = new ConexionBD())
             {
                 database.Pacientes
-                    .Add(new Dominio.Paciente()
+                    .Add(new Paciente()
                     {
                         Dni = dni,
                         Nombre = nombre,
@@ -43,7 +43,7 @@ namespace Servicios
             }
         }
 
-        public void UpdatePaciente(int id, long dni, string nombre, string apellido, DateTime fecNac, string codPac)
+        public void UpdatePaciente(int id, long dni, string nombre, string apellido, DateTime fecNac)
         {
             using (var database = new ConexionBD())
             {
@@ -53,7 +53,6 @@ namespace Servicios
                 paciente.Nombre = nombre;
                 paciente.Apellido = apellido;
                 paciente.FechaNacimiento = fecNac;
-                paciente.CodPaciente = codPac;
 
                 database.Save();
             }

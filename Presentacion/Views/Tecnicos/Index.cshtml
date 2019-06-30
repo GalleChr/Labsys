@@ -9,6 +9,17 @@
     </h4>
 
 
+    @*Nuevo*@
+
+    <div class="container">
+        <div class="row">
+
+            <h2 class="text-center"><button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Nuevo", "Tecnicos")'">Nuevo Tecnico</button></h2>
+
+        </div>
+    </div>
+
+
     @* Buscador *@
 
     <div class="container">
@@ -57,8 +68,9 @@
                             <td>@tecnico.Edad</td>
 
                             <td>
-                                @Html.ActionLink("Editar", "Tecnicos", new { id = tecnico.Id }) |
-                                @Html.ActionLink("Eliminar", "Tecnicos", new { id = tecnico.Id })
+                                <a class="btn btn-link" href="@Url.Action("Editar","Tecnicos", new { id = tecnico.Id})">Editar</a>
+                                |
+                                <a class="btn btn-link" href="@Url.Action("Eliminar","Tecnicos", new { id = tecnico.Id})">Eliminar</a>
                             </td>
                         </tr>
                         }

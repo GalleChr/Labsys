@@ -37,8 +37,6 @@ namespace Servicios.DB
             modelBuilder.Entity<Paciente>().Property(paciente => paciente.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             modelBuilder.Entity<Paciente>().Property(paciente => paciente.Dni).IsRequired();
             modelBuilder.Entity<Paciente>().HasIndex(paciente => paciente.Dni).IsUnique();
-            modelBuilder.Entity<Paciente>().Property(paciente => paciente.CodPaciente).HasMaxLength(10);
-            modelBuilder.Entity<Paciente>().HasIndex(paciente => paciente.CodPaciente).IsUnique();
             modelBuilder.Entity<Paciente>().Property(paciente => paciente.Nombre).IsRequired().HasMaxLength(100);
             modelBuilder.Entity<Paciente>().Property(paciente => paciente.Apellido).IsRequired().HasMaxLength(100);
             modelBuilder.Entity<Paciente>().Property(paciente => paciente.FechaNacimiento).IsRequired();

@@ -1,12 +1,12 @@
-﻿@model Dominio.Paciente
+﻿@model Dominio.Tecnico
 
 @{
     ViewBag.Title = "Eliminar";
 }
 
-<h2>Eliminar Paciente</h2>
+<h2>Eliminar Tecnico</h2>
 
-<h3>Seguro que desea eliminar este Paciente?</h3>
+<h3>Seguro que desea eliminar este Tecnico?</h3>
 <br />
 <div>
     <div class="row">
@@ -45,6 +45,14 @@
                     @Html.DisplayFor(model => model.FechaNacimiento)
                 </dd>
 
+                <dt>
+                    @Html.DisplayNameFor(model => model.Legajo)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Legajo)
+                </dd>
+
             </dl>
 
             @using (Html.BeginForm())
@@ -53,7 +61,7 @@
 
                 <div class="form-actions no-color text-center">
                     <input type="submit" value="Eliminar" class="btn btn-success" /> |
-                    <a class="btn btn-default" href="@Url.Action("Index", "Pacientes")">
+                    <a class="btn btn-default" href="@Url.Action("Index", "Tecnicos")">
                         Volver a Pacientes
                     </a>
                 </div>
