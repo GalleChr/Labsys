@@ -13,7 +13,7 @@ namespace Presentacion.ViewModels.Turnos
         public string NomPac { get; set; } 
         public string NomTec { get; set; }
         public string Fecha { get; set; }
-     //   public int IdEstCli { get; set; }
+
 
         public TurnoViewItem(Turno turno)
         {
@@ -22,7 +22,7 @@ namespace Presentacion.ViewModels.Turnos
             NomPac = turno.Paciente.Nombre + " " + turno.Paciente.Apellido;
             NomTec = turno.Tecnico.Nombre + " " + turno.Tecnico.Apellido;
             Fecha = turno.Fecha.ToString("dd/MM/yyyy");
-      //      IdEstCli = turno.EstudioClinico.Id;
+
 
         }
 

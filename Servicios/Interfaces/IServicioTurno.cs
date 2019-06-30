@@ -11,6 +11,8 @@ namespace Servicios.Interfaces
     {
         IEnumerable<Turno> ObtenerTurnos();
 
+        void AddTurno(long dniPac, long dniTec, DateTime fecha, ICollection<Seccion> secciones);
+
         void DeleteTurno(int id);
 
         IEnumerable<Turno> TurnosEntreFechas(DateTime inicio, DateTime fin);

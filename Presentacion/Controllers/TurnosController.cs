@@ -14,6 +14,7 @@ namespace Presentacion.Controllers
         #region Atributos
 
         private readonly IServicioTurno _ServicioTurno;
+        private readonly IServicioEstudioClinico _ServicioEstudioClinico;
 
         #endregion
 
@@ -37,5 +38,62 @@ namespace Presentacion.Controllers
 
             return View(model);
         }
+
+
+
+        [HttpGet]
+        [Route("Nuevo", Name = "Turnos_Nuevo")]
+        public ActionResult Nuevo()
+        {
+            return View(
+                new NuevoTurnoViewModel()
+                {
+                    Fecha = DateTime.Now
+                });
+        }
+
+        [HttpPost]
+        [Route("Nuevo", Name = "Turnos_Nuevo_Post")]
+        public ActionResult Nuevo(NuevoTurnoViewModel model)
+        {
+
+            if (model.DniPaciente <= 0)
+                ModelState.AddModelError("DniPaciente", "Debe ingresar un DNI");
+
+            if (model.DniTecnico <= 0)
+                ModelState.AddModelError("DniTecnico", "Debe ingresar un DNI");
+
+            if (model.Fecha == null)
+                ModelState.AddModelError("Fecha", "Debe ingresar una fecha");
+            else if (model.Fecha <= DateTime.Now)
+                ModelState.AddModelError("Fecha", "Se debe elegir una fecha hacia adelante");
+
+            if (model.Secciones == null)
+                ModelState.AddModelError("Secciones", "Debe ingresar al menos una Seccion");
+
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    _ServicioTurno.AddTurno(
+                        dniPac: model.DniPaciente,
+                        dniTec: model.DniTecnico,
+                        fecha: model.Fecha,
+                        secciones: model.Secciones
+                        );
+
+
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+            }
+
+            return View(model);
+        }
+
+
     }
 }

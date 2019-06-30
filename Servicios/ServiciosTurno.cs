@@ -13,20 +13,32 @@ namespace Servicios
 {
     public class ServiciosTurno : IServicioTurno
     {
-        public void AddTurno(Paciente paciente, Tecnico tecnico, EstudioClinico estudio, DateTime fecha)
+        private ServiciosEstudioClinico _ServiciosEC = new ServiciosEstudioClinico();
+
+        public void AddTurno(long dniPac, long dniTec, DateTime fecha, ICollection<Seccion> secciones)
         {
 
             using (var database = new ConexionBD())
             {
-                database.Turnos
-                    .AddOrUpdate(new Dominio.Turno()
-                    {
-                        Estado = Estado.PENDIENTE,
-                        Paciente = paciente,
-                        Tecnico = tecnico,
-                        Fecha = fecha
-                    }
-                    );
+                Paciente paciente = null;
+                paciente = database.Pacientes.Find(paciente.Dni = dniPac);
+
+                Tecnico tecnico = null;
+                tecnico = database.Tecnicos.Find(tecnico.Dni = dniTec);
+
+                Turno turno = new Turno
+                {
+                    Estado = Estado.PENDIENTE,
+                    Paciente = paciente,
+                    Tecnico = tecnico,
+                    Fecha = fecha
+                };
+
+                database.Turnos.Add(turno);
+
+                _ServiciosEC.AddEstudioClinico(turno, secciones);
+
+
                 database.Save();
             }
 

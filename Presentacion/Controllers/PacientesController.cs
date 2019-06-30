@@ -151,7 +151,7 @@ namespace Presentacion.Controllers
 
         [HttpPost]
         [Route("Editar", Name = "Pacientes_Editar_Post")]
-        public ActionResult Editar(int id, long dni, string nombre, string apellido, DateTime fecNac)
+        public ActionResult Editar(int id, long dni, string nombre, string apellido, DateTime fecNac) //revisar pasandole el paciente que viene del GET
         {
             _ServicioPaciente.UpdatePaciente(id,dni,nombre,apellido,fecNac);
 

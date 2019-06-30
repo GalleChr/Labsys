@@ -1,7 +1,7 @@
-﻿@model Presentacion.ViewModels.Tecnicos.NuevoTecnicoViewModel
+﻿@model Presentacion.ViewModels.Turnos.NuevoTurnoViewModel
 
 @{
-    ViewBag.Title = "Nuevo Tecnico";
+    ViewBag.Title = "Nuevo Turno";
 }
 
 @section scripts {
@@ -12,10 +12,11 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
     <script>
         $(function () {
-            $('input[name="FechaNacimiento"]').daterangepicker({
+            $('input[name="Fecha"]').daterangepicker({
 
                 singleDatePicker: true,
                 startDate: moment().endOf("day").format('DD/MM/YYYY'),
@@ -36,38 +37,67 @@
         });
     </script>
 
+
+    <script>
+        $('#Grp1').change(function () {
+            if ($(this).is(":checked")) {
+                $('.Grp2').prop('disabled', true);
+            }
+            else {
+                $('.Grp2').prop('disabled', false);
+            }
+        });
+    </script>
 }
 
 
+<h3 class="text-center">Ingrese los datos: </h3>
 
-@using (Html.BeginForm("Nuevo", "Tecnicos", FormMethod.Post))
+
+@using (Html.BeginForm("Nuevo", "Turnos", FormMethod.Post))
 {
     <div class="row">
         <div class="col-xs-offset-3 col-xs-6">
             <div class="form-group">
-                
 
-                <label>Nombre</label>
-                @Html.TextBoxFor(x => x.Nombre, new { @class = "form-control required", placeholder = "Tu nombre" })
-                @Html.ValidationMessage("Nombre", new { @class = "text-danger" })
+                <label>Dni del Paciente</label>
+                @Html.TextBoxFor(x => x.DniPaciente, new { @class = "form-control required", placeholder = "El DNI del paciente", type = "number" })
+                @Html.ValidationMessage("DniPaciente", new { @class = "text-danger" })
             </div>
             <div class="form-group">
-                <label>Apellido</label>@Html.TextBoxFor(x => x.Apellido, new { @class = "form-control required", placeholder = "Tu apellido" })
+                <label>Dni del Tecnico</label>
+                @Html.TextBoxFor(x => x.DniTecnico, new { @class = "form-control required", placeholder = "El DNI del tecnico", type = "number" })
                 @Html.ValidationMessage("Apellido", new { @class = "text-danger" })
             </div>
             <div class="form-group">
-                <label>Dni</label>@Html.TextBoxFor(x => x.Dni, new { @class = "form-control required", type = "number" })
-                @Html.ValidationMessage("Dni", new { @class = "text-danger" })
-            </div>
-            <div class="form-group">
-                <label>Fecha de nacimiento</label>@Html.TextBoxFor(x => x.FechaNacimiento, new { @class = "form-control required" })
-                @Html.ValidationMessage("FechaNacimiento", new { @class = "text-danger" })
-            </div>
-            <div class="form-group">
-                <label>Legajo</label>@Html.TextBoxFor(x => x.Legajo, new { @class = "form-control required" })
-                @Html.ValidationMessage("Legajo", new { @class = "text-danger" })
+                <label>Fecha del Analisis</label>
+                @Html.TextBoxFor(x => x.Fecha, new { @class = "form-control required" })
+                @Html.ValidationMessage("Fecha", new { @class = "text-danger" })
             </div>
 
+            <div class="form-group">
+                <div>
+                    <h3>First group</h3>
+                    <label>
+                        <input type="checkbox" value="1" name="group1" id='Grp1' />If checked, checks all the checkboxes in 2nd group
+                    </label>
+                    
+                </div>
+                <div>
+                    <h3>Second Group</h3>
+                    <label>
+                        <input type="checkbox" class="radio Grp2" value="1" name="group2" />1
+                    </label>
+                    <label>
+                        <input type="checkbox" class="radio Grp2" value="1" name="group2" />1
+                    </label>
+                </div>
+            </div>
+
+            <br />
+            <br />
+            <br />
+            <br />
             <button type="submit" class="btn btn-success pull-left">Confirmar</button>
             <button type="button" class="btn btn-secondary pull-right" onclick="location.href='@Url.Action("Index", "Tecnicos")'">Cancelar</button>
 

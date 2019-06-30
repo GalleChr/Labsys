@@ -147,6 +147,7 @@
     <Compile Include="ViewModels\Tecnicos\NuevoTecnicoViewModel.cs" />
     <Compile Include="ViewModels\Tecnicos\TecnicosViewModel.cs" />
     <Compile Include="ViewModels\Tecnicos\TecnicoViewItem.cs" />
+    <Compile Include="ViewModels\Turnos\NuevoTurnoViewModel.cs" />
     <Compile Include="ViewModels\Turnos\TurnosViewModel.cs" />
     <Compile Include="ViewModels\Turnos\TurnoViewItem.cs" />
   </ItemGroup>
@@ -308,6 +309,7 @@
     <Content Include="Views\Tecnicos\Editar.cshtml" />
     <Content Include="Views\Tecnicos\Nuevo.cshtml" />
     <Content Include="Views\Tecnicos\Eliminar.cshtml" />
+    <Content Include="Views\Turnos\Nuevo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

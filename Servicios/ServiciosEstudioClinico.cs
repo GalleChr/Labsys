@@ -42,5 +42,24 @@ namespace Servicios
                     .ToList();
             }
         }
+
+
+        public void AddEstudioClinico(Turno turno, ICollection<Seccion> secciones)
+        {
+
+            using (var database = new ConexionBD())
+            {
+                database.EstudiosClinicos
+                    .Add(new Dominio.EstudioClinico()
+                    {
+                        Turno = turno,
+                        Secciones = secciones
+                    }
+                    );
+                database.Save();
+            }
+
+        }
+
     }   
    }
