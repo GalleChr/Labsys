@@ -40,6 +40,28 @@ namespace Presentacion.Controllers
         }
 
 
+        [HttpGet]
+        [Route(Name = "Turnos_BuscarEntreFechas")]
+        public ActionResult BuscarEntreFechas()
+        {
+            return View(
+                new TurnosViewModel()
+                {});
+        }
+
+
+        [HttpPost]
+        [Route(Name = "Turnos_BuscarEntreFechas_Post")]
+        public ActionResult BuscarEntreFechas(DateTime inicio, DateTime fin)
+        {
+            var model = new TurnosViewModel()
+            {
+                Turnos = _ServicioTurno.TurnosEntreFechas(inicio, fin).Select(x => new TurnoViewItem(x))
+            };
+
+            return View(model);
+        }
+
 
         [HttpGet]
         [Route("Nuevo", Name = "Turnos_Nuevo")]

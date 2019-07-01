@@ -3,56 +3,114 @@
     ViewBag.Title = "Turnos";
 }
 
+@section scripts {
 
-@*Nuevo*@
-
-<div class="container">
-    <div class="row">
-
-        <h2 class="text-center"><button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Nuevo", "Turnos")'">Nuevo Turno</button></h2>
-
-    </div>
-</div>
+    @*Scripts*@
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
 
+<script>
+    $(function () {
+        $('input[name="Fecha"]').daterangepicker({
+
+            singleDatePicker: true,
+            startDate: moment().endOf("day").format('DD/MM/YYYY'),
+            endDate: moment().format('DD/MM/YYYY'),
+            locale: {
+                format: 'DD/MM/YYYY',
+                dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+                dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié;', 'Juv', 'Vie', 'Sáb'],
+                daysOfWeek: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
+                monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
+            },
+            firstDay: 1,
+            showDropdowns: true,
+            minYear: 1901,
+            maxDate: moment().endOf("year"),
+        }, function (start, end, label) { });
+    });
+</script>
+
+}
 
 
 <div class="container" id="TurnosContainer">
     <h4 class="text-center mt-5">
         Turnos
     </h4>
-    @if (Model.Turnos.Any())
-    {
-        <div class="card">
-            <div class="table-responsive">
-                <table class="table table-hover">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">Paciente</th>
-                            <th scope="col">Tecnico</th>
-                            <th scope="col">Fecha</th>
-                            <th scope="col">Estado</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var turno in Model.Turnos.OrderBy(turno => turno.Fecha))
-                        {
-                            <tr>
-                                <td>@turno.Id</td>
-                                <td>@turno.NomPac</td>
-                                <td>@turno.NomTec</td>
-                                <td>@turno.Fecha</td>
-                                <td>@turno.Estado</td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+
+    @*Nuevo*@
+
+    <div class="container">
+        <div class="row">
+
+            <h2 class="text-center"><button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Nuevo", "Turnos")'">Nuevo Turno</button></h2>
+
+        </div>
+    </div>
+
+
+    @* Buscador *@
+
+    <div class="container">
+        <div class="row my-5">
+            <div class="col-xs-offset-2 col-xs-8">
+                <div class="well">
+                    @using (Html.BeginForm(Url.Action("BuscarEntreFechas", "Pacientes", FormMethod.Get)))
+                    {
+                    <fieldset>
+                        <div class="form-group">
+                            <input type="text" name="Fecha" class="form-control" id="inicio" placeholder="inicio">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="Fecha" class="form-control" id="fin" placeholder="fin">
+                        </div>
+                        <button type="submit" class="btn btn- btn-primary">Buscar</button>
+                    </fieldset>
+                    }
+                </div>
             </div>
         </div>
-    }
-    else
-    {
-        <div class="alert alert-primary">No se encontraron resultados de estudios clinicos.</div>
-    }
-</div>
+    </div>
+
+
+
+        @if (Model.Turnos.Any())
+        {
+            <div class="card">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Paciente</th>
+                                <th scope="col">Tecnico</th>
+                                <th scope="col">Fecha</th>
+                                <th scope="col">Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var turno in Model.Turnos.OrderBy(turno => turno.Fecha))
+                            {
+                                <tr>
+                                    <td>@turno.Id</td>
+                                    <td>@turno.NomPac</td>
+                                    <td>@turno.NomTec</td>
+                                    <td>@turno.Fecha</td>
+                                    <td>@turno.Estado</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-primary">No se encontraron resultados de estudios clinicos.</div>
+        }
+    </div>

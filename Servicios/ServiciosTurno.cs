@@ -59,15 +59,19 @@ namespace Servicios
         {
             using (var database = new ConexionBD())
             {
-                return database
-                    .Turnos
+                
+                    return database
+                     .Turnos
 
-                    .Include(Turno => Turno.Paciente)
-                    .Include(Turno => Turno.Tecnico)
+                     .Include(Turno => Turno.Paciente)
+                     .Include(Turno => Turno.Tecnico)
 
-                    .ToList();
+                     .ToList();
+                
+            
             }
         }
+
 
         public IEnumerable<Turno> TurnosEntreFechas(DateTime inicio, DateTime fin) //REVISAR CON PROFE
         {

@@ -1,0 +1,41 @@
+﻿@model Presentacion.ViewModels.Turnos.TurnosViewModel
+@{
+    ViewBag.Title = "BuscarEntreFechas";
+}
+
+<h2>BuscarEntreFechas</h2>
+
+@if (Model.Turnos.Any())
+{
+    <div class="card">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Paciente</th>
+                        <th scope="col">Tecnico</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var turno in Model.Turnos.OrderBy(turno => turno.Fecha))
+                    {
+                        <tr>
+                            <td>@turno.Id</td>
+                            <td>@turno.NomPac</td>
+                            <td>@turno.NomTec</td>
+                            <td>@turno.Fecha</td>
+                            <td>@turno.Estado</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+else
+{
+    <div class="alert alert-primary">No se encontraron resultados de estudios clinicos.</div>
+}

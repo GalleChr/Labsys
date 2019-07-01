@@ -310,6 +310,7 @@
     <Content Include="Views\Tecnicos\Nuevo.cshtml" />
     <Content Include="Views\Tecnicos\Eliminar.cshtml" />
     <Content Include="Views\Turnos\Nuevo.cshtml" />
+    <Content Include="Views\Turnos\BuscarEntreFechas.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

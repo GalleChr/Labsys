@@ -28,7 +28,7 @@
         <div class="row my-5">
             <div class="col-xs-offset-2 col-xs-8">
                 <div class="well">
-                    @using (Html.BeginForm(Url.Action("Index", "Pacientes", FormMethod.Get)))
+                    @using (Html.BeginForm(Url.Action("Index", "BuscarEntreFechas", FormMethod.Get)))
                     {
                         <fieldset>
                             <div class="form-group">
@@ -71,9 +71,8 @@
                                 <td>@paciente.Edad</td>
                                 <td>
                                     @paciente.ContTurnos - <a href="@Url.Action("TurnosPaciente", "Pacientes", new { dni = paciente.Dni })" class="btn btn-link">
-                                    <i class="fas fa-book-medical" data-toggle="Ver" data-placement="top" title="Ver"></i>
-                                </a>
-                            </td>
+                                    <i class="fas fa-book-medical" data-toggle="Ver" data-placement="top" title="Ver"></i></a>
+                                </td>
                                 <td>
                                     <a class="btn btn-link" href="@Url.Action("Editar","Pacientes", new { id = paciente.Id})">Editar</a> 
                                     |
