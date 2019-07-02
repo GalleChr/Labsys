@@ -15,7 +15,7 @@ namespace Servicios.Interfaces
 
         void DeleteTurno(int id);
 
-        IEnumerable<Turno> TurnosEntreFechas(DateTime inicio, DateTime fin);
+        IEnumerable<Turno> BuscarEntreFechas(DateTime inicio, DateTime fin);
 
         void SetEstadoCancelado(int id);
 

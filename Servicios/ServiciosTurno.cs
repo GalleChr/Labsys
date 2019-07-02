@@ -59,7 +59,9 @@ namespace Servicios
         {
             using (var database = new ConexionBD())
             {
-                
+
+                SetEstadoConfirmado();
+
                     return database
                      .Turnos
 
@@ -73,7 +75,7 @@ namespace Servicios
         }
 
 
-        public IEnumerable<Turno> TurnosEntreFechas(DateTime inicio, DateTime fin) //REVISAR CON PROFE
+        public IEnumerable<Turno> BuscarEntreFechas(DateTime inicio, DateTime fin) //REVISAR CON PROFE
         {
             using (var database = new ConexionBD())
             {
@@ -95,14 +97,16 @@ namespace Servicios
             {
                 var turno = database.Turnos.Find(id);
 
-                turno.Estado = Estado.CANCELADO;
-
+                if (turno.Estado == Estado.PENDIENTE)
+                {
+                    turno.Estado = Estado.CANCELADO;
+                }
                 database.Save();
             }
 
         }
 
-        public void SetEstadoConfirmado() // REVISAR CON PROFE
+        public void SetEstadoConfirmado() 
         {
             using (var database = new ConexionBD())
             {
@@ -110,9 +114,12 @@ namespace Servicios
 
                 foreach (Turno turno in turnos)
                 {
-                    if (turno.Fecha > DateTime.Now)
+                    if (turno.Estado != Estado.CANCELADO)
                     {
-                        turno.Estado = Estado.CONFIRMADO;
+                        if (turno.Fecha < DateTime.Now)
+                        {
+                            turno.Estado = Estado.CONFIRMADO;
+                        }
                     }
                 } 
 

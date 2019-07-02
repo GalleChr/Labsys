@@ -56,7 +56,7 @@ namespace Presentacion.Controllers
         {
             var model = new TurnosViewModel()
             {
-                Turnos = _ServicioTurno.TurnosEntreFechas(inicio, fin).Select(x => new TurnoViewItem(x))
+                Turnos = _ServicioTurno.BuscarEntreFechas(inicio, fin).Select(x => new TurnoViewItem(x))
             };
 
             return View(model);
@@ -114,6 +114,16 @@ namespace Presentacion.Controllers
             }
 
             return View(model);
+        }
+
+
+        [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
+        [Route("Cancelar", Name = "Turnos_Cancelar_Post")]
+        public ActionResult Cancelar(int id)
+        {
+            _ServicioTurno.SetEstadoCancelado(id);
+
+            return RedirectToAction("Index");
         }
 
 

@@ -1,10 +1,8 @@
 
 PENDIENTES
 
-Turnos tienen boton cancelar. Pasan a Cancelados
-Turnos que pasen de Date.Now pasan a Confirmados
 Turnos buscar entre fechas
-Turno nuevo (incluye nuevo EstCli) / Limitar fecha de a 1 hora
+
 
 Paciente tiene boton que muestra historial de EC
 
@@ -16,7 +14,10 @@ Estudio Clinico buscar por Fecha
 A REVISAR
 
 Fecha en Eliminar esta en ingles
-Editar paciente crashea en Controller
+Editar paciente / tecnico crashea en Controller
+
+INCOMPLETO
+Turno nuevo (incluye nuevo EstCli) / Limitar fecha de a 1 hora / Checkbox Secciones
 
 
 
