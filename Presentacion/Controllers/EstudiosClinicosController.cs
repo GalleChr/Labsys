@@ -11,36 +11,54 @@ using System.Web.Mvc;
 namespace Presentacion.Controllers
 {
     public class EstudiosClinicosController : Controller
-    { 
-    #region Atributos
-
-    private readonly IServicioEstudioClinico _ServicioEstudioClinico;
-
-    #endregion
-
-    #region Constructor
-
-    public EstudiosClinicosController()
     {
-            _ServicioEstudioClinico = new ServiciosEstudioClinico();
-    }
+        #region Atributos
 
-    #endregion
+        private readonly IServicioEstudioClinico _ServicioEstudioClinico;
 
-    [HttpGet]
-    [Route(Name = "EstudiosClinicos_Index")]
-    public ActionResult Index()
-    {
-        var model = new EstudiosClinicosViewModel()
+        #endregion
+
+        #region Constructor
+
+        public EstudiosClinicosController()
         {
-            EstudiosClinicos = 
-            _ServicioEstudioClinico
-            .ObtenerEstudiosClinicos()
-            .Select(x => new EstudioClinicoViewItem(x))
-            .ToList()
-        };
+            _ServicioEstudioClinico = new ServiciosEstudioClinico();
+        }
 
-        return View(model);
-    }
-}
+        #endregion
+
+        [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
+        [Route(Name = "EstudiosClinicos_Index")]
+        public ActionResult Index(string fecha)
+        {
+            var model = new EstudiosClinicosViewModel()
+            {
+                EstudiosClinicos =
+                _ServicioEstudioClinico
+                .ObtenerEstudiosClinicos(fecha)
+                .Select(x => new EstudioClinicoViewItem(x))
+                .ToList()
+            };
+
+            return View(model);
+        }
+
+        [HttpGet]
+        [Route(Name = "EstudiosClinicos_HistorialEstudiosClinicos")]
+        public ActionResult HistorialEstudiosClinicos()
+        {
+            return View(
+            new EstudiosClinicosViewModel()
+            { });
+        }
+
+        [HttpPost]
+        [Route(Name = "EstudiosClinicos_HistorialEstudiosClinicos_Post")]
+        public ActionResult HistorialEstudiosClinicos(int id)
+        {
+            _ServicioEstudioClinico.HistorialEstudiosClinicos(id);
+
+            return RedirectToAction("Index");
+        }
+    };
 }

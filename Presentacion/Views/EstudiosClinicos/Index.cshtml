@@ -2,43 +2,106 @@
 @{
     ViewBag.Title = "EstudiosClinicos";
 }
+@section scripts {
 
-<div class="container" id="EstudiosClinicosContainer">
-    <h4 class="text-center mt-5">
-        Estudios Clinicos
-    </h4>
-    @if (Model.EstudiosClinicos.Any())
-    {
-        <div class="card">
-            <div class="table-responsive">
-                <table class="table table-hover">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">Apellido y Nombre</th>
-                            <th scope="col">Fecha</th>
-                            <th scope="col">Tipo</th>
-                            <th scope="col">Secciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var estudioclinico in Model.EstudiosClinicos.OrderBy(estudioclinico => estudioclinico.ApellidoNombre))
+    @*Scripts*@
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+
+    <script>
+
+    @* DatePicker *@
+
+    $(function () {
+        $('.Fecha').daterangepicker({
+
+            singleDatePicker: true,
+            startDate: moment().endOf("day").format('DD/MM/YYYY'),
+            endDate: moment().format('DD/MM/YYYY'),
+            locale: {
+                format: 'DD/MM/YYYY',
+                dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+                dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié;', 'Juv', 'Vie', 'Sáb'],
+                daysOfWeek: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
+                monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
+            },
+            firstDay: 1,
+            showDropdowns: true,
+            minYear: 1901,
+            maxDate: moment().endOf("year"),
+        }, function (start, end, label) { });
+    });
+
+    </script>
+
+}
+
+    <div class="container" id="EstudiosClinicosContainer">
+        <h4 class="text-center mt-5">
+            Estudios Clinicos
+        </h4>
+
+        @* Buscador *@
+
+        <div class="container">
+            <div class="row my-5">
+                <div class="col-xs-offset-2 col-xs-8">
+                    <div class="well">
+                        @using (Html.BeginForm(Url.Action("Index", "EstudiosClinicos", FormMethod.Get)))
                         {
-                        <tr>
-                            <td>@estudioclinico.Id</td>
-                            <td>@estudioclinico.ApellidoNombre</td>
-                            <td>@estudioclinico.Fecha</td>
-                            <td>@estudioclinico.Tipo</td>
-                            <td>@estudioclinico.ContSecciones</td>
-                        </tr>
+                            <fieldset>
+                                <div class="form-group">
+                                    <label>Fecha</label>
+                                    @Html.TextBox("Fin", "", new { @class = "form-control Fecha" })
+                                </div>
+                                <button type="submit" class="btn btn-primary">Buscar</button>
+                            </fieldset>
                         }
-                    </tbody>
-                </table>
+                    </div>
+                </div>
             </div>
         </div>
-    }
-    else
-    {
-        <div class="alert alert-primary">No se encontraron resultados de estudios clinicos.</div>
-    }
-</div>
+
+
+
+
+
+        @if (Model.EstudiosClinicos.Any())
+        {
+            <div class="card">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Apellido y Nombre</th>
+                                <th scope="col">Fecha</th>
+                                <th scope="col">Tipo</th>
+                                <th scope="col">Secciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var estudioclinico in Model.EstudiosClinicos.OrderBy(estudioclinico => estudioclinico.ApellidoNombre))
+                            {
+                                <tr>
+                                    <td>@estudioclinico.Id</td>
+                                    <td>@estudioclinico.ApellidoNombre</td>
+                                    <td>@estudioclinico.Fecha</td>
+                                    <td>@estudioclinico.Tipo</td>
+                                    <td>@estudioclinico.ContSecciones</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-primary">No se encontraron resultados de estudios clinicos.</div>
+        }
+    </div>

@@ -9,12 +9,15 @@ namespace Presentacion.ViewModels.Turnos
     public class NuevoTurnoViewModel
     {
         public long DniPaciente { get; set; }
-        public long DniTecnico { get; set; }
-        public string Tipo { get; set; }
-        public virtual ICollection<Seccion> Secciones { get; set; }
+        public virtual IEnumerable<Seccion> Secciones { get; set; }
         public DateTime Fecha { get; set; }
 
-        public NuevoTurnoViewModel() { }
+        public IEnumerable<int> SeccionesElegidas { get; set; }
+
+        public NuevoTurnoViewModel()
+        {
+            SeccionesElegidas = Enumerable.Empty<int>();
+        }
 
     }
 }

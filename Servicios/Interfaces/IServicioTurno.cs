@@ -11,14 +11,16 @@ namespace Servicios.Interfaces
     {
         IEnumerable<Turno> ObtenerTurnos();
 
-        void AddTurno(long dniPac, long dniTec, DateTime fecha, ICollection<Seccion> secciones);
+        void AddTurno(long dniPac, DateTime fecha, IEnumerable<int> secciones);
 
         void DeleteTurno(int id);
 
-        IEnumerable<Turno> TurnosEntreFechas(DateTime inicio, DateTime fin);
+        IEnumerable<Turno> BuscarEntreFechas(DateTime inicio, DateTime fin);
 
         void SetEstadoCancelado(int id);
 
         void SetEstadoConfirmado();
+
+        IEnumerable<Turno> TurnosPaciente(int id);
     }
 }

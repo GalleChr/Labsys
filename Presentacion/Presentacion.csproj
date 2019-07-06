@@ -291,7 +291,6 @@
     <Content Include="Views\Turnos\Index.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Pacientes\Nuevo.cshtml" />
-    <Content Include="Views\Pacientes\TurnosPaciente.cshtml" />
     <Content Include="webfonts\fa-brands-400.eot" />
     <Content Include="webfonts\fa-brands-400.ttf" />
     <Content Include="webfonts\fa-brands-400.woff" />
@@ -311,6 +310,8 @@
     <Content Include="Views\Tecnicos\Eliminar.cshtml" />
     <Content Include="Views\Turnos\Nuevo.cshtml" />
     <Content Include="Views\Turnos\BuscarEntreFechas.cshtml" />
+    <Content Include="Views\EstudiosClinicos\HistorialEstudiosClinicos.cshtml" />
+    <Content Include="Views\Turnos\TurnosPaciente.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

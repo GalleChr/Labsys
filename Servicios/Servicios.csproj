@@ -57,12 +57,14 @@
     <Compile Include="Interfaces\IServicioEstudioClinico.cs" />
     <Compile Include="Interfaces\IServicioPaciente.cs" />
     <Compile Include="Interfaces\IServicioTecnico.cs" />
+    <Compile Include="Interfaces\IServicioSeccion.cs" />
     <Compile Include="Interfaces\IServicioTurno.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiciosEstudioClinico.cs" />
     <Compile Include="ServiciosPaciente.cs" />
     <Compile Include="ServiciosTecnico.cs" />
+    <Compile Include="ServiciosSeccion.cs" />
     <Compile Include="ServiciosTurno.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -12,7 +12,6 @@ namespace Presentacion.ViewModels.Pacientes
         public string Apellido { get; set; }
         public long Dni { get; set; }
         public DateTime FechaNacimiento { get; set; }
-        public string CodPac { get; set; }
 
         public EditarPacienteViewModel()
         { }

@@ -14,11 +14,24 @@ namespace Servicios
     public class ServiciosEstudioClinico : IServicioEstudioClinico
     {
 
-        public IEnumerable<EstudioClinico> ObtenerEstudiosClinicos()
+        public IEnumerable<EstudioClinico> ObtenerEstudiosClinicos(string fecha)
         {
             using (var database = new ConexionBD())
             {
-                return database
+                if (!string.IsNullOrWhiteSpace(fecha))
+                {
+                    return database
+                    .EstudiosClinicos
+                    .Include(EstudioClinico => EstudioClinico.Secciones)
+                    .Include(EstudioClinico => EstudioClinico.Turno)
+                    .Include(EstudioClinico => EstudioClinico.Turno.Paciente)
+                    .Include(EstudioClinico => EstudioClinico.Turno.Tecnico)
+                    .Include(EstudioClinico => EstudioClinico.Secciones.Select(x => x.Tipo))
+                    .Where(estudioClinico => estudioClinico.Turno.Fecha == DateTime.Parse(fecha))
+                    .ToList();
+                }
+
+                                    return database
                     .EstudiosClinicos
                     .Include(EstudioClinico => EstudioClinico.Secciones)
                     .Include(EstudioClinico => EstudioClinico.Turno)
@@ -37,29 +50,54 @@ namespace Servicios
                     .EstudiosClinicos
                     .Include(ec => ec.Turno)
                     .Include(ec => ec.Secciones)
-                    .Where(ec => ec.Turno.Paciente.Id.Equals(id))
+                    .Where(ec => ec.Turno.Paciente.Id == id)
 
                     .ToList();
             }
         }
 
 
-        public void AddEstudioClinico(Turno turno, ICollection<Seccion> secciones)
+        public void AddEstudioClinico(int turnoId, IEnumerable<int> secciones)
         {
-
             using (var database = new ConexionBD())
             {
-                database.EstudiosClinicos
-                    .Add(new Dominio.EstudioClinico()
-                    {
-                        Turno = turno,
-                        Secciones = secciones
-                    }
-                    );
+                var turno = database.Turnos.Find(turnoId);
+
+                var estudioClinico = new EstudioClinico()
+                {
+                    Turno = turno
+                };
+
+                foreach(var seccion in database.Secciones.Where(x => secciones.Contains(x.Id)))
+                {
+                    estudioClinico.Secciones.Add(seccion);
+                    database.Secciones.Attach(seccion);
+                }
+
+                database.EstudiosClinicos.Add(estudioClinico);
+
+                database.Turnos.Attach(turno);
+
                 database.Save();
             }
 
         }
 
+
+        public IEnumerable<EstudioClinico> HistorialEstudiosClinicos(int id)
+        {
+            using (var database = new ConexionBD())
+            {
+                return database
+                .EstudiosClinicos
+                .Include(EstudioClinico => EstudioClinico.Secciones)
+                .Include(EstudioClinico => EstudioClinico.Turno)
+                .Include(EstudioClinico => EstudioClinico.Turno.Paciente)
+                .Include(EstudioClinico => EstudioClinico.Turno.Tecnico)
+                .Include(EstudioClinico => EstudioClinico.Secciones.Select(x => x.Tipo))
+                .Where(ec => ec.Turno.Paciente.Id == id && ec.Turno.Estado == Estado.CONFIRMADO)
+                .ToList();
+            }
+        }
     }   
    }

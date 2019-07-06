@@ -14,7 +14,7 @@ namespace Presentacion.Controllers
         #region Atributos
 
         private readonly IServicioTurno _ServicioTurno;
-        private readonly IServicioEstudioClinico _ServicioEstudioClinico;
+        private readonly IServicioSeccion _ServicioSeccion;
 
         #endregion
 
@@ -23,6 +23,7 @@ namespace Presentacion.Controllers
         public TurnosController()
         {
             _ServicioTurno = new ServiciosTurno();
+            _ServicioSeccion = new ServiciosSeccion();
         }
 
         #endregion
@@ -39,27 +40,16 @@ namespace Presentacion.Controllers
             return View(model);
         }
 
-
-        [HttpGet]
-        [Route(Name = "Turnos_BuscarEntreFechas")]
-        public ActionResult BuscarEntreFechas()
-        {
-            return View(
-                new TurnosViewModel()
-                {});
-        }
-
-
         [HttpPost]
-        [Route(Name = "Turnos_BuscarEntreFechas_Post")]
-        public ActionResult BuscarEntreFechas(DateTime inicio, DateTime fin)
+        [Route("BuscarEntreFechas", Name = "Turnos_BuscarEntreFechas_Post")]
+        public ActionResult BuscarEntreFechas(DateTime? inicio, DateTime? fin)
         {
             var model = new TurnosViewModel()
             {
-                Turnos = _ServicioTurno.TurnosEntreFechas(inicio, fin).Select(x => new TurnoViewItem(x))
+                Turnos = _ServicioTurno.BuscarEntreFechas(inicio.Value, fin.Value).Select(x => new TurnoViewItem(x))
             };
 
-            return View(model);
+            return View("Index", model);
         }
 
 
@@ -67,11 +57,13 @@ namespace Presentacion.Controllers
         [Route("Nuevo", Name = "Turnos_Nuevo")]
         public ActionResult Nuevo()
         {
-            return View(
-                new NuevoTurnoViewModel()
-                {
-                    Fecha = DateTime.Now
-                });
+            var model = new NuevoTurnoViewModel()
+            {
+                Fecha = DateTime.Now,
+                Secciones = _ServicioSeccion.ObtenerSecciones()
+            };
+
+            return View(model);
         }
 
         [HttpPost]
@@ -81,27 +73,24 @@ namespace Presentacion.Controllers
 
             if (model.DniPaciente <= 0)
                 ModelState.AddModelError("DniPaciente", "Debe ingresar un DNI");
-
-            if (model.DniTecnico <= 0)
-                ModelState.AddModelError("DniTecnico", "Debe ingresar un DNI");
-
             if (model.Fecha == null)
                 ModelState.AddModelError("Fecha", "Debe ingresar una fecha");
             else if (model.Fecha <= DateTime.Now)
                 ModelState.AddModelError("Fecha", "Se debe elegir una fecha hacia adelante");
 
-            if (model.Secciones == null)
+            if (!model.SeccionesElegidas.Any())
                 ModelState.AddModelError("Secciones", "Debe ingresar al menos una Seccion");
+
+            model.Secciones = _ServicioSeccion.ObtenerSecciones();
 
             try
             {
                 if (ModelState.IsValid)
                 {
-                    _ServicioTurno.AddTurno(
+                        _ServicioTurno.AddTurno(
                         dniPac: model.DniPaciente,
-                        dniTec: model.DniTecnico,
                         fecha: model.Fecha,
-                        secciones: model.Secciones
+                        secciones: model.SeccionesElegidas
                         );
 
 
@@ -117,5 +106,31 @@ namespace Presentacion.Controllers
         }
 
 
+        [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
+        [Route("Cancelar", Name = "Turnos_Cancelar_Post")]
+        public ActionResult Cancelar(int id)
+        {
+            _ServicioTurno.SetEstadoCancelado(id);
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        [Route("TurnosPaciente", Name = "Turnos_TurnosPaciente")]
+        public ActionResult TurnosPaciente()
+        {
+            return View(
+            new TurnosViewModel()
+            { });
+        }
+
+        [HttpPost]
+        [Route("TurnosPaciente", Name = "Turnos_TurnosPaciente_Post")]
+        public ActionResult TurnosPaciente(int id)
+        {
+            _ServicioTurno.TurnosPaciente(id);
+
+            return RedirectToAction("Index");
+        }
     }
 }

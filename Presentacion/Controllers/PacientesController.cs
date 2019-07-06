@@ -131,21 +131,11 @@ namespace Presentacion.Controllers
 
         [HttpGet]
         [Route("Editar", Name = "Pacientes_Editar")]
-        public ActionResult Editar(int? id)
+        public ActionResult Editar()
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            var database = new ConexionBD();
-
-            Paciente paciente = database.Pacientes.Find(id);
-            if (paciente == null)
-            {
-                return HttpNotFound();
-            }
-            return View(paciente);
+            return View(
+            new EditarPacienteViewModel()
+            { });
         }
 
 

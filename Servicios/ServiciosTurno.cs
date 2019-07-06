@@ -15,33 +15,38 @@ namespace Servicios
     {
         private ServiciosEstudioClinico _ServiciosEC = new ServiciosEstudioClinico();
 
-        public void AddTurno(long dniPac, long dniTec, DateTime fecha, ICollection<Seccion> secciones)
+        public void AddTurno(long dniPac, DateTime fecha, IEnumerable<int> secciones)
         {
+            Turno turno = null;
 
             using (var database = new ConexionBD())
             {
-                Paciente paciente = null;
-                paciente = database.Pacientes.Find(paciente.Dni = dniPac);
+                Paciente paciente = database.Pacientes.FirstOrDefault(p => p.Dni == dniPac);
 
-                Tecnico tecnico = null;
-                tecnico = database.Tecnicos.Find(tecnico.Dni = dniTec);
+                var maxId = database.Tecnicos.Max(x => x.Id);
 
-                Turno turno = new Turno
+                Tecnico tecnico = database.Tecnicos.Find(new Random().Next(1, maxId));
+
+                Turno existente = database.Turnos.FirstOrDefault(x => x.Fecha == fecha);
+
+                if (existente == null && paciente != null)
                 {
-                    Estado = Estado.PENDIENTE,
-                    Paciente = paciente,
-                    Tecnico = tecnico,
-                    Fecha = fecha
-                };
+                    turno = new Turno
+                    {
+                        Estado = Estado.PENDIENTE,
+                        Paciente = paciente,
+                        Tecnico = tecnico,
+                        Fecha = fecha
+                    };
 
-                database.Turnos.Add(turno);
+                    database.Turnos.Add(turno);
 
-                _ServiciosEC.AddEstudioClinico(turno, secciones);
-
-
-                database.Save();
+                    database.Save();
+                }
             }
 
+            if(turno != null)
+                _ServiciosEC.AddEstudioClinico(turno.Id, secciones);
         }
 
         public void DeleteTurno(int id)
@@ -59,30 +64,35 @@ namespace Servicios
         {
             using (var database = new ConexionBD())
             {
-                
-                    return database
-                     .Turnos
 
-                     .Include(Turno => Turno.Paciente)
-                     .Include(Turno => Turno.Tecnico)
+                SetEstadoConfirmado();
 
-                     .ToList();
-                
-            
+                return database
+                 .Turnos
+
+                 .Include(Turno => Turno.Paciente)
+                 .Include(Turno => Turno.Tecnico)
+
+                 .ToList();
+
+
             }
         }
 
 
-        public IEnumerable<Turno> TurnosEntreFechas(DateTime inicio, DateTime fin) //REVISAR CON PROFE
+        public IEnumerable<Turno> BuscarEntreFechas(DateTime inicio, DateTime fin) //REVISAR CON PROFE
         {
+            var fechaInicio = inicio.Date.AddMilliseconds(-1);
+            var fechaFin = fin.Date.Date.AddDays(1).AddMilliseconds(-1);
+
             using (var database = new ConexionBD())
             {
                 return database
                     .Turnos
                     .Include(turno => turno.Paciente)
                     .Include(turno => turno.Tecnico)
-                    .Include(turno => turno.Estado)
-                    .Where(turno => turno.Fecha >= inicio && turno.Fecha <= fin)
+
+                    .Where(turno => turno.Fecha >= fechaInicio && turno.Fecha <= fechaFin)
 
                     .ToList();
             }
@@ -95,14 +105,16 @@ namespace Servicios
             {
                 var turno = database.Turnos.Find(id);
 
-                turno.Estado = Estado.CANCELADO;
-
+                if (turno.Estado == Estado.PENDIENTE)
+                {
+                    turno.Estado = Estado.CANCELADO;
+                }
                 database.Save();
             }
 
         }
 
-        public void SetEstadoConfirmado() // REVISAR CON PROFE
+        public void SetEstadoConfirmado()
         {
             using (var database = new ConexionBD())
             {
@@ -110,16 +122,34 @@ namespace Servicios
 
                 foreach (Turno turno in turnos)
                 {
-                    if (turno.Fecha > DateTime.Now)
+                    if (turno.Estado != Estado.CANCELADO)
                     {
-                        turno.Estado = Estado.CONFIRMADO;
+                        if (turno.Fecha < DateTime.Now)
+                        {
+                            turno.Estado = Estado.CONFIRMADO;
+                        }
                     }
-                } 
+                }
 
                 database.Save();
             }
 
 
+        }
+
+        public IEnumerable<Turno> TurnosPaciente(int id)
+        {
+            using (var database = new ConexionBD())
+            {
+                return database
+                    .Turnos
+                    .Include(turno => turno.Paciente)
+                    .Include(turno => turno.Tecnico)
+                    .Include(turno => turno.Estado)
+                    .Where(turno => turno.Paciente.Id == id && turno.Estado == Estado.PENDIENTE)
+
+                    .ToList();
+            }
         }
     }
 }

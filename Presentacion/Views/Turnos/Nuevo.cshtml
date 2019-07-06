@@ -31,21 +31,34 @@
                 firstDay: 1,
                 showDropdowns: true,
                 minYear: 1901,
-                maxDate: moment().endOf("day"),
+                maxDate: moment().endOf("year"),
             }, function (start, end, label) { });
         });
     </script>
 
 
     <script>
-        $('#Grp1').change(function () {
-            if ($(this).is(":checked")) {
-                $('.Grp2').prop('disabled', true);
+        //$('#Grp1').change(function () {
+        //    if ($(this).is(":checked")) {
+        //        $('.Grp2').prop('disabled', true);
+        //    }
+        //    else {
+        //        $('.Grp2').prop('disabled', false);
+        //    }
+        //});
+
+        function habilitarSecciones(selected) {
+            var chk = $(selected);
+            var checked = chk.is(":checked");
+            var id = chk.val();
+
+            $("[id^='Grp2']").attr("disabled", true);
+
+            if (checked) {
+                $(".Grp2_" + id).removeAttr("disabled", false);
+
             }
-            else {
-                $('.Grp2').prop('disabled', false);
-            }
-        });
+        }
     </script>
 }
 
@@ -64,33 +77,29 @@
                 @Html.ValidationMessage("DniPaciente", new { @class = "text-danger" })
             </div>
             <div class="form-group">
-                <label>Dni del Tecnico</label>
-                @Html.TextBoxFor(x => x.DniTecnico, new { @class = "form-control required", placeholder = "El DNI del tecnico", type = "number" })
-                @Html.ValidationMessage("Apellido", new { @class = "text-danger" })
-            </div>
-            <div class="form-group">
                 <label>Fecha del Analisis</label>
                 @Html.TextBoxFor(x => x.Fecha, new { @class = "form-control required" })
                 @Html.ValidationMessage("Fecha", new { @class = "text-danger" })
             </div>
 
             <div class="form-group">
-                <div>
-                    <h3>First group</h3>
+                <h3>Tipo</h3>
+                @foreach (Dominio.Tipo tipo in Model.Secciones.Select(x => x.Tipo).Distinct())
+                {
                     <label>
-                        <input type="checkbox" value="1" name="group1" id='Grp1' />If checked, checks all the checkboxes in 2nd group
+                        <input type="radio" value="@tipo.Id" name="Grp_Tipo" id='Grp_@tipo.Id' onclick="habilitarSecciones(this);" /> @tipo.Descrip
                     </label>
-                    
-                </div>
-                <div>
-                    <h3>Second Group</h3>
-                    <label>
-                        <input type="checkbox" class="radio Grp2" value="1" name="group2" />1
-                    </label>
-                    <label>
-                        <input type="checkbox" class="radio Grp2" value="1" name="group2" />1
-                    </label>
-                </div>
+
+                    <hr />
+                    foreach (var seccion in Model.Secciones.Where(x => x.Tipo == tipo))
+                    {
+                        <label>
+                            <input type="checkbox" class="Grp2_@tipo.Id" value="@seccion.Id" name="SeccionesElegidas" id="Grp2_@seccion.Id" disabled /> @seccion.Descrip
+                        </label>
+                    }
+
+                    <hr />
+                }
             </div>
 
             <br />

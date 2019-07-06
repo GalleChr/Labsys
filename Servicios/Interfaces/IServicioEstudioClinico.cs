@@ -9,10 +9,12 @@ namespace Servicios.Interfaces
 {
     public interface IServicioEstudioClinico
     {
-        IEnumerable<EstudioClinico> ObtenerEstudiosClinicos();
+        IEnumerable<EstudioClinico> ObtenerEstudiosClinicos(string fecha);
 
         IEnumerable<EstudioClinico> ObtenerEstudiosClinicosPorPaciente(int id);
 
-        void AddEstudioClinico(Turno turno, ICollection<Seccion> secciones);
+        void AddEstudioClinico(int turnoId, IEnumerable<int> secciones);
+
+        IEnumerable<EstudioClinico> HistorialEstudiosClinicos(int id);
     }
 }
