@@ -165,7 +165,6 @@ namespace Servicios
                     .Turnos
                     .Include(turno => turno.Paciente)
                     .Include(turno => turno.Tecnico)
-                    .Include(turno => turno.Estado)
                     .Where(turno => turno.Paciente.Id == id && turno.Estado == Estado.PENDIENTE)
 
                     .ToList();
