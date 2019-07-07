@@ -53,17 +53,6 @@ namespace Presentacion.Controllers
             return View("Index", model);
         }
 
-        //[HttpGet]
-        //[Route(Name = "EstudiosClinicos_HistorialEstudiosClinicos")]
-        //public ActionResult HistorialEstudiosClinicos(int id)
-        //{
-        //    var database = new ConexionBD();
-
-        //    EstudiosClinicosViewModel model = new EstudiosClinicosViewModel(id);
-
-        //    return View(model);
-        //}
-
 
         [HttpGet]
         [Route("HistorialEstudiosClinicos", Name = "EstudiosClinicos_HistorialEstudiosClinicos")]
@@ -77,6 +66,22 @@ namespace Presentacion.Controllers
 
             return View(model);
         }
+
+
+
+        //[HttpGet]
+        //[Route(Name = "EstudiosClinicos_HistorialEstudiosClinicos")]
+        //public ActionResult HistorialEstudiosClinicos(int id)
+        //{
+        //    var database = new ConexionBD();
+
+        //    EstudiosClinicosViewModel model = new EstudiosClinicosViewModel(id);
+
+        //    return View(model);
+        //}
+
+
+
 
         //[HttpPost]
         //[Route("HistorialEstudiosClinicos", Name = "EstudiosClinicos_HistorialEstudiosClinicos_Post")]
