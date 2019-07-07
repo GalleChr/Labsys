@@ -1,6 +1,8 @@
 ﻿@model Presentacion.ViewModels.Tecnicos.TecnicosViewModel
 @{
-    ViewBag.Title = "Tecnicos";
+                /**/
+
+                ViewBag.Title = "Tecnicos";
 }
 
 <div class="container" id="TecnicosContainer">
@@ -24,7 +26,7 @@
 
     <div class="container">
         <div class="row my-5">
-            <div class="col-xs-offset-2 col-xs-8">
+            <div class="col-xs-offset-2 col-xs-7">
                 <div class="well">
                     @using (Html.BeginForm(Url.Action("Index", "Tecnicos", FormMethod.Get)))
                     {
@@ -60,19 +62,19 @@
                     <tbody>
                         @foreach (var tecnico in Model.Tecnicos.OrderBy(tecnico => tecnico.ApellidoNombre))
                         {
-                        <tr>
-                            <td>@tecnico.Id</td>
-                            <td>@tecnico.ApellidoNombre</td>
-                            <td>@tecnico.Dni</td>
-                            <td>@tecnico.Legajo</td>
-                            <td>@tecnico.Edad</td>
+                            <tr>
+                                <td>@tecnico.Id</td>
+                                <td>@tecnico.ApellidoNombre</td>
+                                <td>@tecnico.Dni</td>
+                                <td>@tecnico.Legajo</td>
+                                <td>@tecnico.Edad</td>
 
-                            <td>
-                                <a class="btn btn-link" href="@Url.Action("Editar","Tecnicos", new { id = tecnico.Id})">Editar</a>
-                                |
-                                <a class="btn btn-link" href="@Url.Action("Eliminar","Tecnicos", new { id = tecnico.Id})">Eliminar</a>
-                            </td>
-                        </tr>
+                                <td>
+                                    <a class="btn btn-link" href="@Url.Action("Editar","Tecnicos", new { id = tecnico.Id})">Editar</a>
+                                    |
+                                    <a class="btn btn-link" href="@Url.Action("Eliminar","Tecnicos", new { id = tecnico.Id})">Eliminar</a>
+                                </td>
+                            </tr>
                         }
                     </tbody>
                 </table>

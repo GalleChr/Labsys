@@ -47,7 +47,7 @@ namespace Servicios
         {
             using (var database = new ConexionBD())
             {
-                var paciente = database.Pacientes.FirstOrDefault(x => x.Id == id);
+                var paciente = database.Pacientes.Find(id);
 
                 paciente.Dni = dni;
                 paciente.Nombre = nombre;

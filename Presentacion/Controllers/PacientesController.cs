@@ -63,6 +63,8 @@ namespace Presentacion.Controllers
 
             if (model.Dni <= 0)
                 ModelState.AddModelError("Dni", "Debe ingresar un DNI");
+            else if (model.Dni.ToString().Length != 8)
+                ModelState.AddModelError("Dni", "Debe ingresar un DNI valido");
 
             if (string.IsNullOrWhiteSpace(model.Nombre))
                 ModelState.AddModelError("Nombre", "Debe ingresar un nombre");
@@ -131,21 +133,60 @@ namespace Presentacion.Controllers
 
         [HttpGet]
         [Route("Editar", Name = "Pacientes_Editar")]
-        public ActionResult Editar()
+        public ActionResult Editar(int id)
         {
-            return View(
-            new EditarPacienteViewModel()
-            { });
+            var database = new ConexionBD();
+
+            EditarPacienteViewModel model = new EditarPacienteViewModel(id);
+
+            return View(model);
         }
 
 
         [HttpPost]
         [Route("Editar", Name = "Pacientes_Editar_Post")]
-        public ActionResult Editar(int id, long dni, string nombre, string apellido, DateTime fecNac) //revisar pasandole el paciente que viene del GET
+        public ActionResult Editar(EditarPacienteViewModel model) //revisar pasandole el paciente que viene del GET
         {
-            _ServicioPaciente.UpdatePaciente(id,dni,nombre,apellido,fecNac);
+            
+            bool containsIntNom = false;
+            bool containsIntApe = false;
 
-            return RedirectToAction("Index");
+            if (model.Dni <= 0)
+                ModelState.AddModelError("Dni", "Debe ingresar un DNI");
+            else if(model.Dni.ToString().Count() != 8)
+                ModelState.AddModelError("Dni", "Debe ingresar un DNI valido");
+
+            if (string.IsNullOrWhiteSpace(model.Nombre))
+                ModelState.AddModelError("Nombre", "Debe ingresar un nombre");
+            else if (containsIntNom = model.Nombre.Any(char.IsDigit))
+                ModelState.AddModelError("Nombre", "No se deben ingresar numeros");
+
+            if (string.IsNullOrWhiteSpace(model.Apellido))
+                ModelState.AddModelError("Apellido", "Debe ingresar un apellido");
+            else if (containsIntApe = model.Apellido.Any(char.IsDigit))
+                ModelState.AddModelError("Apellido", "No se deben ingresar numeros");
+
+            if (model.FechaNacimiento == null)
+                ModelState.AddModelError("FechaNacimiento", "Debe ingresar fecha de nacimiento");
+            else if (model.FechaNacimiento > DateTime.Now.AddYears(-5))
+                ModelState.AddModelError("FechaNacimiento", "El paciente debe ser mayor de 5");
+
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    _ServicioPaciente.UpdatePaciente(model.Id,model.Dni,model.Nombre,model.Apellido,model.FechaNacimiento);
+
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+            }
+
+            return View(model);
+
         }
 
 

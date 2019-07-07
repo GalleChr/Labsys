@@ -1,5 +1,7 @@
 ﻿@model Presentacion.ViewModels.EstudiosClinicos.EstudiosClinicosViewModel
 @{
+    /**/
+
     ViewBag.Title = "HistorialEstudiosClinicos";
 }
 
@@ -28,7 +30,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var estudioclinico in Model.EstudiosClinicos.OrderBy(estudioclinico => estudioclinico.ApellidoNombre))
+                        @foreach (var estudioclinico in Model.EstudiosClinicos.OrderBy(estudioclinico => estudioclinico.Fecha))
                         {
                             <tr>
                                 <td>@estudioclinico.Id</td>

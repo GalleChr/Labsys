@@ -1,18 +1,20 @@
 ﻿@model Presentacion.ViewModels.Turnos.TurnosViewModel
 @{
+    /**/
+
     ViewBag.Title = "Turnos";
 }
 
 @section scripts {
 
     @*Scripts*@
-<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
 
-<script>
+    <script>
 
     @* DatePicker *@
 
@@ -49,7 +51,7 @@
         }
 
 
-</script>
+    </script>
 
 }
 
@@ -73,11 +75,11 @@
     @* Buscador *@
 
     <div class="container">
-            <div class="row my-5">
-                <div class="col-xs-offset-2 col-xs-8">
-                    <div class="well">
-                        @using (Html.BeginForm("BuscarEntreFechas", "Turnos", FormMethod.Post))
-                        {
+        <div class="row my-5">
+            <div class="col-xs-offset-2 col-xs-8">
+                <div class="well">
+                    @using (Html.BeginForm("BuscarEntreFechas", "Turnos", FormMethod.Post))
+                    {
                         <fieldset>
                             <div class="form-group">
                                 <label>Fecha de inicio</label>
@@ -86,39 +88,17 @@
                                 @Html.TextBox("fin", "", new { @class = "form-control Fecha" })
                             </div>
                             <button type="submit" class="btn btn-primary">Buscar</button>
+                            <button type="button" class="btn btn-secondary pull-right" onclick="location.href='@Url.Action("Index", "Turnos")'">Volver</button>
                         </fieldset>
-                        }
-                    </div>
+                    }
                 </div>
             </div>
         </div>
+    </div>
 
 
 
-
-
-    @*<div class="container">
-            <div class="row my-5">
-                <div class="col-xs-offset-2 col-xs-8">
-                    <div class="well">
-                        @using (Html.BeginForm(Url.Action("Index", "Turnos", FormMethod.Post)))
-                        {
-                        <fieldset>
-                            <div class="form-group">
-                                <label>Fecha de inicio</label>
-                                <input type="text" name="Fecha" class="form-control" id="inicio" placeholder="inicio">
-                                <label>Fecha de fin</label>
-                                <input type="text" name="Fecha" class="form-control" id="fin" placeholder="fin">
-                            </div>
-                            <button type="submit" class="btn btn- btn-primary">Buscar</button>
-                        </fieldset>
-                        }
-                    </div>
-                </div>
-            </div>
-        </div>*@
-
-
+    @* Listado *@
 
     @if (Model.Turnos.Any())
     {
@@ -147,7 +127,6 @@
                             </tr>
                         }
                     </tbody>
-
                 </table>
             </div>
         </div>

@@ -1,7 +1,9 @@
 ﻿@model Presentacion.ViewModels.Turnos.NuevoTurnoViewModel
 
 @{
-    ViewBag.Title = "Nuevo Turno";
+                /**/
+
+                ViewBag.Title = "Nuevo Turno";
 }
 
 @section scripts {
@@ -56,7 +58,7 @@
 
             if (checked) {
                 $(".Grp2_" + id).removeAttr("disabled", false);
-
+                $(".Grp2_" + seccion.id).prop('checked', false);
             }
         }
     </script>

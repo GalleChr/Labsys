@@ -75,7 +75,7 @@ namespace Servicios.DB
             modelBuilder.Entity<Turno>().Property(turno => turno.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             modelBuilder.Entity<Turno>().Property(turno => turno.Fecha).IsRequired();
             modelBuilder.Entity<Turno>().HasRequired(turno => turno.Paciente);
-            modelBuilder.Entity<Turno>().HasRequired(turno => turno.Tecnico);
+            //       modelBuilder.Entity<Turno>().HasRequired(turno => turno.Tecnico);
 
             #endregion
 

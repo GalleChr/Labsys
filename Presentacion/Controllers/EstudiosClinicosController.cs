@@ -1,6 +1,7 @@
 ﻿
 using Presentacion.ViewModels.EstudiosClinicos;
 using Servicios;
+using Servicios.DB;
 using Servicios.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -27,38 +28,76 @@ namespace Presentacion.Controllers
 
         #endregion
 
-        [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
-        [Route(Name = "EstudiosClinicos_Index")]
-        public ActionResult Index(string fecha)
+        [HttpGet]
+        [Route("Index", Name = "EstudiosClinicos_Index")]
+        public ActionResult Index()
         {
             var model = new EstudiosClinicosViewModel()
             {
-                EstudiosClinicos =
-                _ServicioEstudioClinico
-                .ObtenerEstudiosClinicos(fecha)
-                .Select(x => new EstudioClinicoViewItem(x))
-                .ToList()
+                EstudiosClinicos = _ServicioEstudioClinico.ObtenerEstudiosClinicos().Select(x => new EstudioClinicoViewItem(x))
+
             };
 
             return View(model);
         }
 
-        [HttpGet]
-        [Route(Name = "EstudiosClinicos_HistorialEstudiosClinicos")]
-        public ActionResult HistorialEstudiosClinicos()
+        [HttpPost]
+        [Route("BuscarPorFecha", Name = "EstudiosClinicos_BuscarPorFecha_Post")]
+        public ActionResult BuscarPorFecha(DateTime? fecha)
         {
-            return View(
-            new EstudiosClinicosViewModel()
-            { });
+            var model = new EstudiosClinicosViewModel()
+            {
+                EstudiosClinicos = _ServicioEstudioClinico.BuscarPorFecha(fecha.Value).Select(x => new EstudioClinicoViewItem(x))
+            };
+
+            return View("Index", model);
         }
 
-        [HttpPost]
-        [Route(Name = "EstudiosClinicos_HistorialEstudiosClinicos_Post")]
+        //[HttpGet]
+        //[Route(Name = "EstudiosClinicos_HistorialEstudiosClinicos")]
+        //public ActionResult HistorialEstudiosClinicos(int id)
+        //{
+        //    var database = new ConexionBD();
+
+        //    EstudiosClinicosViewModel model = new EstudiosClinicosViewModel(id);
+
+        //    return View(model);
+        //}
+
+
+        [HttpGet]
+        [Route("HistorialEstudiosClinicos", Name = "EstudiosClinicos_HistorialEstudiosClinicos")]
         public ActionResult HistorialEstudiosClinicos(int id)
         {
-            _ServicioEstudioClinico.HistorialEstudiosClinicos(id);
+            var model = new EstudiosClinicosViewModel()
+            {
+                EstudiosClinicos = _ServicioEstudioClinico.HistorialEstudiosClinicos(id).Select(x => new EstudioClinicoViewItem(x))
 
-            return RedirectToAction("Index");
+            };
+
+            return View(model);
         }
+
+        //[HttpPost]
+        //[Route("HistorialEstudiosClinicos", Name = "EstudiosClinicos_HistorialEstudiosClinicos_Post")]
+        //public ActionResult HistorialEstudiosClinicos(HistorialEstudiosClinicosViewModel model)
+        //{
+
+        //    model.EstudiosClinicos = _ServicioEstudioClinico.HistorialEstudiosClinicos(model.Id).Select(x => new EstudioClinicoViewItem(x));
+
+        //    return View("Index", model);
+        //}
+
+        //[HttpPost]
+        //[Route("HistorialEstudiosClinicos", Name = "EstudiosClinicos_HistorialEstudiosClinicos_Post")]
+        //public ActionResult HistorialEstudiosClinicos(int id)
+        //{
+        //    var model = new EstudiosClinicosViewModel()
+        //    {
+        //        EstudiosClinicos = _ServicioEstudioClinico.HistorialEstudiosClinicos(id).Select(x => new EstudioClinicoViewItem(x))
+        //    };
+
+        //    return View("Index", model);
+        //}
     };
 }

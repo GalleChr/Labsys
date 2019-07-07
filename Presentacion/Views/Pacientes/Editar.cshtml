@@ -1,7 +1,9 @@
 ﻿@model Presentacion.ViewModels.Pacientes.EditarPacienteViewModel
 
 @{
-    ViewBag.Title = "Editar Paciente";
+                /**/
+
+                ViewBag.Title = "Editar Paciente";
 }
 
 @section scripts {
@@ -48,7 +50,6 @@
         <div class="col-xs-offset-3 col-xs-6">
             <div class="form-group">
 
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 @Html.HiddenFor(model => model.Id)
 
                 <label>Nombre</label>
@@ -73,7 +74,7 @@
 
             @Html.ValidationMessage("", new { @class = "text-danger" })
         </div>
-        </div>
+    </div>
 }
 
 

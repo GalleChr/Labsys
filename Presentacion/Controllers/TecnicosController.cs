@@ -63,6 +63,8 @@ namespace Presentacion.Controllers
 
             if (model.Dni <= 0)
                 ModelState.AddModelError("Dni", "Debe ingresar un DNI");
+            else if (model.Dni.ToString().Length != 8)
+                ModelState.AddModelError("Dni", "Debe ingresar un DNI valido");
 
             if (string.IsNullOrWhiteSpace(model.Nombre))
                 ModelState.AddModelError("Nombre", "Debe ingresar un nombre");
@@ -77,7 +79,7 @@ namespace Presentacion.Controllers
             if (model.FechaNacimiento == null)
                 ModelState.AddModelError("FechaNacimiento", "Debe ingresar fecha de nacimiento");
             else if (model.FechaNacimiento > DateTime.Now.AddYears(-21))
-                ModelState.AddModelError("FechaNacimiento", "El paciente debe ser mayor de 21");
+                ModelState.AddModelError("FechaNacimiento", "El tecnico debe ser mayor de 21");
             if (string.IsNullOrWhiteSpace(model.Legajo))
                 ModelState.AddModelError("Legajo", "Debe ingresar un Legajo");
 
@@ -132,6 +134,67 @@ namespace Presentacion.Controllers
             _ServicioTecnico.DeleteTecnico(id);
 
             return RedirectToAction("Index");
+        }
+
+
+        [HttpGet]
+        [Route("Editar", Name = "Tecnicos_Editar")]
+        public ActionResult Editar(int id)
+        {
+            //       var database = new ConexionBD();
+
+            EditarTecnicoViewModel model = new EditarTecnicoViewModel(id);
+
+            return View(model);
+        }
+
+
+        [HttpPost]
+        [Route("Editar", Name = "Tecnicos_Editar_Post")]
+        public ActionResult Editar(EditarTecnicoViewModel model) //revisar pasandole el paciente que viene del GET
+        {
+
+            bool containsIntNom = false;
+            bool containsIntApe = false;
+
+            if (model.Dni <= 0)
+                ModelState.AddModelError("Dni", "Debe ingresar un DNI");
+            else if (model.Dni.ToString().Count() != 8)
+                ModelState.AddModelError("Dni", "Debe ingresar un DNI valido");
+
+            if (string.IsNullOrWhiteSpace(model.Nombre))
+                ModelState.AddModelError("Nombre", "Debe ingresar un nombre");
+            else if (containsIntNom = model.Nombre.Any(char.IsDigit))
+                ModelState.AddModelError("Nombre", "No se deben ingresar numeros");
+
+            if (string.IsNullOrWhiteSpace(model.Apellido))
+                ModelState.AddModelError("Apellido", "Debe ingresar un apellido");
+            else if (containsIntApe = model.Apellido.Any(char.IsDigit))
+                ModelState.AddModelError("Apellido", "No se deben ingresar numeros");
+
+            if (model.FechaNacimiento == null)
+                ModelState.AddModelError("FechaNacimiento", "Debe ingresar fecha de nacimiento");
+            else if (model.FechaNacimiento > DateTime.Now.AddYears(-21))
+                ModelState.AddModelError("FechaNacimiento", "El tecnico debe ser mayor de 21");
+            if (string.IsNullOrWhiteSpace(model.Legajo))
+                ModelState.AddModelError("Legajo", "Debe ingresar un Legajo");
+
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    _ServicioTecnico.UpdateTecnico(model.Id, model.Dni, model.Nombre, model.Apellido, model.FechaNacimiento, model.Legajo);
+
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+            }
+
+            return View(model);
+
         }
     }
 }

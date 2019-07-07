@@ -1,0 +1,45 @@
+﻿@model Presentacion.ViewModels.EstudiosClinicos.EstudiosClinicosViewModel
+@{
+    /**/
+
+    ViewBag.Title = "BuscarPorFecha";
+}
+
+<h2>BuscarPorFecha</h2>
+
+@* Listado *@
+
+@if (Model.EstudiosClinicos.Any())
+{
+    <div class="card">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Apellido y Nombre</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Tipo</th>
+                        <th scope="col">Secciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var estudioclinico in Model.EstudiosClinicos.OrderBy(estudioclinico => estudioclinico.Fecha))
+                    {
+                        <tr>
+                            <td>@estudioclinico.Id</td>
+                            <td>@estudioclinico.ApellidoNombre</td>
+                            <td>@estudioclinico.Fecha</td>
+                            <td>@estudioclinico.Tipo</td>
+                            <td>@estudioclinico.ContSecciones</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+else
+{
+    <div class="alert alert-primary">No se encontraron resultados de estudios clinicos.</div>
+}

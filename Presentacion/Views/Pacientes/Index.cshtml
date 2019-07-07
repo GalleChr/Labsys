@@ -1,6 +1,8 @@
 ﻿@model Presentacion.ViewModels.Pacientes.PacientesViewModel
 @{
-    ViewBag.Title = "Pacientes";
+                /**/
+
+                ViewBag.Title = "Pacientes";
 }
 
 
@@ -26,7 +28,7 @@
 
     <div class="container">
         <div class="row my-5">
-            <div class="col-xs-offset-2 col-xs-8">
+            <div class="col-xs-offset-2 col-xs-7">
                 <div class="well">
                     @using (Html.BeginForm(Url.Action("Index", "Pacientes", FormMethod.Get)))
                     {
@@ -55,38 +57,36 @@
                             <th scope="col">ID</th>
                             <th scope="col">Apellido y Nombre</th>
                             <th scope="col">DNI</th>
-                            <th scope="col">Codigo de Paciente</th>
                             <th scope="col">Edad (Fecha Nacimiento)</th>
-                            <th scope="col">Turnos</th>
+                            <th scope="col">Proximos Turnos</th>
                             <th scope="col">Historial</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var paciente in Model.Pacientes.OrderBy(paciente => paciente.ApellidoNombre))
                         {
-                        <tr>
-                            <td>@paciente.Id</td>
-                            <td>@paciente.ApellidoNombre</td>
-                            <td>@paciente.Dni</td>
-                            <td>@paciente.CodPaciente</td>
-                            <td>@paciente.Edad</td>
-                            <td>
-                                @paciente.ContTurnos - <a href="@Url.Action("TurnosPaciente", "Turnos", new { id = paciente.Id })" class="btn btn-link">
-                                    <i class="far fa-clock" data-toggle="Ver turnos" data-placement="top" title="Ver turnos"></i>
-                                </a>
-                            </td>
-                            <td>
-                                <a href="@Url.Action("HistorialEstudiosClinicos", "EstudiosClinicos", new { id = paciente.Id })" class="btn btn-link">
-                                    <i class="fas fa-file-medical" data-toggle="Ver Historial" data-placement="top" title="Ver Historial"></i>
-                                </a>
-                            </td>
-                            <td>
-                                <a class="btn btn-link" href="@Url.Action("Editar","Pacientes", new { id = paciente.Id})">Editar</a>
-                                |
-                                <a class="btn btn-link" href="@Url.Action("Eliminar","Pacientes", new { id = paciente.Id})">Eliminar</a>
-                            </td>
-                        </tr>
-                    }
+                            <tr>
+                                <td>@paciente.Id</td>
+                                <td>@paciente.ApellidoNombre</td>
+                                <td>@paciente.Dni</td>
+                                <td>@paciente.Edad</td>
+                                <td>
+                                    @paciente.ContTurnos -<a href="@Url.Action("TurnosPaciente", "Turnos", new { id = paciente.Id })" class="btn btn-link">
+                                        <i class="far fa-clock" data-toggle="Ver Turnos" data-placement="top" title="Turnos pendientes"></i>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("HistorialEstudiosClinicos", "EstudiosClinicos", new { id = paciente.Id })" class="btn btn-link">
+                                        <i class="fas fa-file-medical" data-toggle="Ver Historial" data-placement="top" title="Historial de Analisis"></i>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a class="btn btn-link" href="@Url.Action("Editar","Pacientes", new { id = paciente.Id})">Editar</a>
+                                    |
+                                    <a class="btn btn-link" href="@Url.Action("Eliminar","Pacientes", new { id = paciente.Id})">Eliminar</a>
+                                </td>
+                            </tr>
+                        }
                     </tbody>
                 </table>
             </div>

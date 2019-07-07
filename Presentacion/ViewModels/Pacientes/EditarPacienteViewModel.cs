@@ -13,9 +13,13 @@ namespace Presentacion.ViewModels.Pacientes
         public long Dni { get; set; }
         public DateTime FechaNacimiento { get; set; }
 
+
         public EditarPacienteViewModel()
-        { }
+        {}
 
-
+        public EditarPacienteViewModel(int id)
+        {
+            Id = id;
+        }
     }
 }

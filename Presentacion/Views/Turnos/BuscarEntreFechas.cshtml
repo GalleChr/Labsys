@@ -1,4 +1,5 @@
-﻿@model Presentacion.ViewModels.Turnos
+﻿@model Presentacion.ViewModels.Turnos.TurnosViewModel
+@model Presentacion.ViewModels.Turnos.TurnosViewModel
 @{
     ViewBag.Title = "BuscarEntreFechas";
 }
@@ -28,6 +29,7 @@
                             <td>@turno.NomTec</td>
                             <td>@turno.Fecha</td>
                             <td>@turno.Estado</td>
+                            <td><button type="button" class="btn btn-secondary pull-right" onclick="location.href='@Url.Action("Index", "Turnos")'">Volver</button></td>
                         </tr>
                     }
                 </tbody>
@@ -37,5 +39,5 @@
 }
 else
 {
-    <div class="alert alert-primary">No se encontraron resultados de estudios clinicos.</div>
+    <div class="alert alert-primary">No se encontraron resultados de turnos.</div>
 }

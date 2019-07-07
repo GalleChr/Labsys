@@ -29,7 +29,7 @@ namespace Presentacion.Controllers
         #endregion
 
         [HttpGet]
-        [Route(Name = "Turnos_Index")]
+        [Route("Index", Name = "Turnos_Index")]
         public ActionResult Index()
         {
             var model = new TurnosViewModel()
@@ -87,11 +87,11 @@ namespace Presentacion.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                        _ServicioTurno.AddTurno(
-                        dniPac: model.DniPaciente,
-                        fecha: model.Fecha,
-                        secciones: model.SeccionesElegidas
-                        );
+                    _ServicioTurno.AddTurno(
+                    dniPac: model.DniPaciente,
+                    fecha: model.Fecha,
+                    secciones: model.SeccionesElegidas
+                    );
 
 
                     return RedirectToAction("Index");
@@ -117,20 +117,27 @@ namespace Presentacion.Controllers
 
         [HttpGet]
         [Route("TurnosPaciente", Name = "Turnos_TurnosPaciente")]
-        public ActionResult TurnosPaciente()
-        {
-            return View(
-            new TurnosViewModel()
-            { });
-        }
-
-        [HttpPost]
-        [Route("TurnosPaciente", Name = "Turnos_TurnosPaciente_Post")]
         public ActionResult TurnosPaciente(int id)
         {
-            _ServicioTurno.TurnosPaciente(id);
+            var model = new TurnosViewModel()
+            {
+                Turnos = _ServicioTurno.TurnosPaciente(id).Select(x => new TurnoViewItem(x))
 
-            return RedirectToAction("Index");
+            };
+
+            return View(model);
         }
+
+        //[HttpPost]
+        //[Route("TurnosPaciente", Name = "Turnos_TurnosPaciente_Post")]
+        //public ActionResult TurnosPaciente(int id)
+        //{
+        //    _ServicioTurno.TurnosPaciente(id);
+
+        //    return RedirectToAction("Index");
+        //}
+
+
+
     }
 }

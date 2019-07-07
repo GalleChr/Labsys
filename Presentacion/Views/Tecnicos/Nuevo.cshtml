@@ -1,7 +1,11 @@
 ﻿@model Presentacion.ViewModels.Tecnicos.NuevoTecnicoViewModel
 
 @{
-    ViewBag.Title = "Nuevo Tecnico";
+                /**/
+
+                /**/
+
+                ViewBag.Title = "Nuevo Tecnico";
 }
 
 @section scripts {
@@ -38,14 +42,14 @@
 
 }
 
-    <h3 class="text-center">Ingrese los datos: </h3>
+<h3 class="text-center">Ingrese los datos: </h3>
 
 @using (Html.BeginForm("Nuevo", "Tecnicos", FormMethod.Post))
 {
     <div class="row">
         <div class="col-xs-offset-3 col-xs-6">
             <div class="form-group">
-                
+
 
                 <label>Nombre</label>
                 @Html.TextBoxFor(x => x.Nombre, new { @class = "form-control required", placeholder = "Tu nombre" })

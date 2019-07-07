@@ -17,15 +17,26 @@ namespace Presentacion.ViewModels.Pacientes
 
         public PacienteViewItem(Paciente paciente)
         {
+            int count = 0;
             var hoy = DateTime.Today;
             var edad = hoy.Year - paciente.FechaNacimiento.Year;
             if (paciente.FechaNacimiento.Date > hoy.AddYears(-edad)) edad--;
+
+            foreach (Turno turno in paciente.Turnos)
+            {
+
+                if (turno.Estado == Estado.PENDIENTE)
+                {
+                    count++;
+                }
+            }
 
             Id = paciente.Id;
             ApellidoNombre = $"{paciente.Apellido}, {paciente.Nombre}";
             Dni = paciente.Dni;
             Edad = $"{edad} años ({paciente.FechaNacimiento.ToString("dd/MM/yyyy")})";
-            ContTurnos = paciente.Turnos.Count(); 
+            ContTurnos = count;
+
         }
     }
 }

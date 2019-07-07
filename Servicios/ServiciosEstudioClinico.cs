@@ -14,31 +14,37 @@ namespace Servicios
     public class ServiciosEstudioClinico : IServicioEstudioClinico
     {
 
-        public IEnumerable<EstudioClinico> ObtenerEstudiosClinicos(string fecha)
+        public IEnumerable<EstudioClinico> ObtenerEstudiosClinicos()
         {
+
             using (var database = new ConexionBD())
             {
-                if (!string.IsNullOrWhiteSpace(fecha))
-                {
-                    return database
-                    .EstudiosClinicos
-                    .Include(EstudioClinico => EstudioClinico.Secciones)
-                    .Include(EstudioClinico => EstudioClinico.Turno)
-                    .Include(EstudioClinico => EstudioClinico.Turno.Paciente)
-                    .Include(EstudioClinico => EstudioClinico.Turno.Tecnico)
-                    .Include(EstudioClinico => EstudioClinico.Secciones.Select(x => x.Tipo))
-                    .Where(estudioClinico => estudioClinico.Turno.Fecha == DateTime.Parse(fecha))
-                    .ToList();
-                }
 
-                                    return database
-                    .EstudiosClinicos
-                    .Include(EstudioClinico => EstudioClinico.Secciones)
-                    .Include(EstudioClinico => EstudioClinico.Turno)
-                    .Include(EstudioClinico => EstudioClinico.Turno.Paciente)
-                    .Include(EstudioClinico => EstudioClinico.Turno.Tecnico)
-                    .Include(EstudioClinico => EstudioClinico.Secciones.Select(x => x.Tipo))
-                    .ToList();
+                return database
+                .EstudiosClinicos
+                .Include(EstudioClinico => EstudioClinico.Secciones)
+                .Include(EstudioClinico => EstudioClinico.Turno)
+                .Include(EstudioClinico => EstudioClinico.Turno.Paciente)
+                .Include(EstudioClinico => EstudioClinico.Turno.Tecnico)
+                .Include(EstudioClinico => EstudioClinico.Secciones.Select(x => x.Tipo))
+                .ToList();
+            }
+        }
+
+        public IEnumerable<EstudioClinico> BuscarPorFecha(DateTime fecha) //REVISAR CON PROFE
+        {
+
+            using (var database = new ConexionBD())
+            {
+                return database
+                .EstudiosClinicos
+                .Include(EstudioClinico => EstudioClinico.Secciones)
+                .Include(EstudioClinico => EstudioClinico.Turno)
+                .Include(EstudioClinico => EstudioClinico.Turno.Paciente)
+                .Include(EstudioClinico => EstudioClinico.Turno.Tecnico)
+                .Include(EstudioClinico => EstudioClinico.Secciones.Select(x => x.Tipo))
+                .Where(estudioClinico => estudioClinico.Turno.Fecha.Day == fecha.Day)
+                .ToList();
             }
         }
 
@@ -68,7 +74,7 @@ namespace Servicios
                     Turno = turno
                 };
 
-                foreach(var seccion in database.Secciones.Where(x => secciones.Contains(x.Id)))
+                foreach (var seccion in database.Secciones.Where(x => secciones.Contains(x.Id)))
                 {
                     estudioClinico.Secciones.Add(seccion);
                     database.Secciones.Attach(seccion);
@@ -99,5 +105,5 @@ namespace Servicios
                 .ToList();
             }
         }
-    }   
-   }
+    }
+}

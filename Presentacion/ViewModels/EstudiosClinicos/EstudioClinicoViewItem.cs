@@ -15,6 +15,7 @@ namespace Presentacion.ViewModels.EstudiosClinicos
         public int ContSecciones { get; set; }
 
 
+
         public EstudioClinicoViewItem(EstudioClinico estudioClinico)
         {
             Id = estudioClinico.Id;
@@ -22,7 +23,6 @@ namespace Presentacion.ViewModels.EstudiosClinicos
             Fecha = estudioClinico.Turno.Fecha.ToString("dd/MM/yyyy");
             Tipo = estudioClinico.Secciones.FirstOrDefault().Tipo.Descrip;
             ContSecciones = estudioClinico.Secciones.Count();
-
         }
     }
 }
