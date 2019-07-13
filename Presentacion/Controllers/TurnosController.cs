@@ -128,16 +128,5 @@ namespace Presentacion.Controllers
             return View(model);
         }
 
-        //[HttpPost]
-        //[Route("TurnosPaciente", Name = "Turnos_TurnosPaciente_Post")]
-        //public ActionResult TurnosPaciente(int id)
-        //{
-        //    _ServicioTurno.TurnosPaciente(id);
-
-        //    return RedirectToAction("Index");
-        //}
-
-
-
     }
 }

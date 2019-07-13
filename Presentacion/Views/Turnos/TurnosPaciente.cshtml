@@ -1,8 +1,8 @@
 ﻿@model Presentacion.ViewModels.Turnos.TurnosViewModel
 @{
-                /**/
+    /**/
 
-                ViewBag.Title = "Turnos";
+    ViewBag.Title = "Turnos";
 }
 
 @section scripts {
@@ -75,6 +75,7 @@
                             <th scope="col">Tecnico</th>
                             <th scope="col">Fecha</th>
                             <th scope="col">Estado</th>
+                            <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -93,7 +94,7 @@
 
                 </table>
             </div>
-            <a class="btn btn-default" href="@Url.Action("Index", "Pacientes")">
+            <a class="btn btn-outline-secondary" href="@Url.Action("Index", "Pacientes")">
                 Volver a Pacientes
             </a>
         </div>

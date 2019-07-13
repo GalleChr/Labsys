@@ -1,9 +1,9 @@
 ﻿@model Presentacion.ViewModels.Tecnicos.EditarTecnicoViewModel
 
 @{
-                /**/
+    /**/
 
-                ViewBag.Title = "Editar Tecnico";
+    ViewBag.Title = "Editar Tecnico";
 }
 
 @section scripts {
@@ -47,7 +47,7 @@
 @using (Html.BeginForm("Editar", "Tecnicos", FormMethod.Post))
 {
     <div class="row">
-        <div class="col-xs-offset-3 col-xs-6">
+        <div class="mx-auto text-center">
             <div class="form-group">
 
                 @Html.HiddenFor(model => model.Id)

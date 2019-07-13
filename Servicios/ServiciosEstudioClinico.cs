@@ -98,12 +98,16 @@ namespace Servicios
                 .EstudiosClinicos
                 .Include(EstudioClinico => EstudioClinico.Secciones)
                 .Include(EstudioClinico => EstudioClinico.Turno)
-                .Include(EstudioClinico => EstudioClinico.Turno.Paciente)
-                .Include(EstudioClinico => EstudioClinico.Turno.Tecnico)
-                .Include(EstudioClinico => EstudioClinico.Secciones.Select(x => x.Tipo))
+                //             .Include(EstudioClinico => EstudioClinico.Turno.Paciente)
+                //             .Include(EstudioClinico => EstudioClinico.Turno.Tecnico)
+                //             .Include(EstudioClinico => EstudioClinico.Secciones.Select(x => x.Tipo))
                 .Where(ec => ec.Turno.Paciente.Id == id && ec.Turno.Estado == Estado.CONFIRMADO)
                 .ToList();
             }
         }
+
+
+
+
     }
 }

@@ -67,42 +67,5 @@ namespace Presentacion.Controllers
             return View(model);
         }
 
-
-
-        //[HttpGet]
-        //[Route(Name = "EstudiosClinicos_HistorialEstudiosClinicos")]
-        //public ActionResult HistorialEstudiosClinicos(int id)
-        //{
-        //    var database = new ConexionBD();
-
-        //    EstudiosClinicosViewModel model = new EstudiosClinicosViewModel(id);
-
-        //    return View(model);
-        //}
-
-
-
-
-        //[HttpPost]
-        //[Route("HistorialEstudiosClinicos", Name = "EstudiosClinicos_HistorialEstudiosClinicos_Post")]
-        //public ActionResult HistorialEstudiosClinicos(HistorialEstudiosClinicosViewModel model)
-        //{
-
-        //    model.EstudiosClinicos = _ServicioEstudioClinico.HistorialEstudiosClinicos(model.Id).Select(x => new EstudioClinicoViewItem(x));
-
-        //    return View("Index", model);
-        //}
-
-        //[HttpPost]
-        //[Route("HistorialEstudiosClinicos", Name = "EstudiosClinicos_HistorialEstudiosClinicos_Post")]
-        //public ActionResult HistorialEstudiosClinicos(int id)
-        //{
-        //    var model = new EstudiosClinicosViewModel()
-        //    {
-        //        EstudiosClinicos = _ServicioEstudioClinico.HistorialEstudiosClinicos(id).Select(x => new EstudioClinicoViewItem(x))
-        //    };
-
-        //    return View("Index", model);
-        //}
     };
 }

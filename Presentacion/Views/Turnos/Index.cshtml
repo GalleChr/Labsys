@@ -64,7 +64,7 @@
     <div class="container">
         <div class="row">
 
-            <div class="col text-center">
+            <div class="mx-auto text-center">
                 <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Nuevo", "Turnos")'">Nuevo Turno</button>
             </div>
 
@@ -76,7 +76,7 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-sm-3 offset-sm-4 text-center">
+            <div class="mx-auto text-center">
                 <div class="well">
                     @using (Html.BeginForm("BuscarEntreFechas", "Turnos", FormMethod.Post))
                     {

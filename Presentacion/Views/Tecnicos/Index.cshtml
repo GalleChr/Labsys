@@ -6,18 +6,16 @@
 }
 
 <div class="container" id="TecnicosContainer">
-    <h4 class="text-center mt-5">
-        Tecnicos
-    </h4>
 
+    <br />
 
     @*Nuevo*@
 
     <div class="container">
         <div class="row">
-
-            <h2 class="text-center"><button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Nuevo", "Tecnicos")'">Nuevo Tecnico</button></h2>
-
+            <div class="mx-auto text-center">
+                <h2 class="text-center"><button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Nuevo", "Tecnicos")'">Nuevo Tecnico</button></h2>
+            </div>
         </div>
     </div>
 
@@ -25,13 +23,14 @@
     @* Buscador *@
 
     <div class="container">
-        <div class="row my-5">
-            <div class="col-xs-offset-2 col-xs-7">
+        <div class="row">
+            <div class="mx-auto text-center">
                 <div class="well">
                     @using (Html.BeginForm(Url.Action("Index", "Tecnicos", FormMethod.Get)))
                     {
                         <fieldset>
                             <div class="form-group">
+                                <label>Buscar por Apellido:</label>
                                 <input type="text" class="form-control" name="apellido" id="apellido" placeholder="Apellido">
                             </div>
                             <button type="submit" class="btn btn- btn-primary">Buscar</button>
@@ -41,6 +40,8 @@
             </div>
         </div>
     </div>
+
+    <br />
 
     @* Listado *@
 

@@ -80,7 +80,7 @@ namespace Servicios
         }
 
 
-        public IEnumerable<Turno> BuscarEntreFechas(DateTime inicio, DateTime fin) //REVISAR CON PROFE
+        public IEnumerable<Turno> BuscarEntreFechas(DateTime inicio, DateTime fin)
         {
             var fechaInicio = inicio.Date.AddMilliseconds(-1);
             var fechaFin = fin.Date.Date.AddDays(1).AddMilliseconds(-1);
@@ -137,26 +137,6 @@ namespace Servicios
 
         }
 
-        //public IEnumerable<Turno> TurnosPaciente(int id)
-        //{
-
-        //    using (var database = new ConexionBD())
-        //    {
-        //        IEnumerable<Turno> turnos = database.Turnos;
-        //        IEnumerable<Turno> turnosPaciente = null;
-
-        //        foreach (Turno turno in turnos)
-        //        {
-        //            if (turno.Paciente.Id == id && turno.Estado == Estado.PENDIENTE)
-        //            {
-        //                turnosPaciente.Append(turno);
-        //            }
-        //        }
-        //        return turnosPaciente.ToList();
-        //    }
-        //}
-
-
         public IEnumerable<Turno> TurnosPaciente(int id)
         {
             using (var database = new ConexionBD())
@@ -165,7 +145,6 @@ namespace Servicios
                     .Turnos
                     .Include(turno => turno.Paciente)
                     .Include(turno => turno.Tecnico)
-                    .Include(turno => turno.Estado)
                     .Where(turno => turno.Paciente.Id == id && turno.Estado == Estado.PENDIENTE)
 
                     .ToList();
