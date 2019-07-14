@@ -10,7 +10,7 @@ namespace Presentacion.ViewModels.Turnos
     {
         public int Id { get; set; }
         public string Estado { get; set; }
-        public string NomPac { get; set; } 
+        public string NomPac { get; set; }
         public string NomTec { get; set; }
         public string Fecha { get; set; }
 
@@ -22,7 +22,6 @@ namespace Presentacion.ViewModels.Turnos
             NomPac = turno.Paciente.Nombre + " " + turno.Paciente.Apellido;
             NomTec = turno.Tecnico.Nombre + " " + turno.Tecnico.Apellido;
             Fecha = turno.Fecha.ToString("dd/MM/yyyy");
-
 
         }
 

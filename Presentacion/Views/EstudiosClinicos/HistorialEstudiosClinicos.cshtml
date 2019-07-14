@@ -5,15 +5,10 @@
     ViewBag.Title = "HistorialEstudiosClinicos";
 }
 
-<h2>HistorialEstudiosClinicos</h2>
-
-@*Igual a Index EC por ID que se encuentren en estado Confirmado*@
 
 <div class="container" id="EstudiosClinicosContainer">
-    <h4 class="text-center mt-5">
-        Estudios Clinicos
-    </h4>
 
+    <br />
 
     @if (Model.EstudiosClinicos.Any())
     {
@@ -43,14 +38,21 @@
                     </tbody>
                 </table>
             </div>
-            <a class="btn btn-default" href="@Url.Action("Index", "Pacientes")">
+            <a class="btn btn-outline-secondary" href="@Url.Action("Index", "Pacientes")">
                 Volver a Pacientes
             </a>
         </div>
     }
     else
     {
-        <div class="alert alert-primary">No se encontraron resultados de estudios clinicos.</div>
+        <br />
+        <div class="alert alert-primary mx-auto text-center">No se encontraron estudios clinicos en el historial del paciente.</div>
+
+        <h2 class="text-center">
+            <a class="btn btn-outline-secondary" href="@Url.Action("Index", "Pacientes")">
+                Volver a Pacientes
+            </a>
+        </h2>
     }
 
 </div>

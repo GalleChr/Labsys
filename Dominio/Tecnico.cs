@@ -14,13 +14,14 @@ namespace Dominio
         public string Apellido { get; set; }
         public DateTime FechaNacimiento { get; set; }
         public string Legajo { get; set; }
+        public Boolean Status { get; set; }
 
 
         #endregion
 
         #region Constructor
 
-        public Tecnico() {}
+        public Tecnico() { }
 
         #endregion
     }

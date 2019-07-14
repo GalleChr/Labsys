@@ -11,8 +11,6 @@ namespace Servicios.Interfaces
     {
         IEnumerable<EstudioClinico> ObtenerEstudiosClinicos();
 
-        IEnumerable<EstudioClinico> ObtenerEstudiosClinicosPorPaciente(int id);
-
         void AddEstudioClinico(int turnoId, IEnumerable<int> secciones);
 
         IEnumerable<EstudioClinico> HistorialEstudiosClinicos(int id);

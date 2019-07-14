@@ -25,6 +25,7 @@ namespace Servicios
                         Nombre = nombre,
                         Apellido = apellido,
                         FechaNacimiento = fecNac,
+                        Status = true
                     }
                     );
                 database.Save();
@@ -38,7 +39,8 @@ namespace Servicios
             {
                 var paciente = database.Pacientes.Find(id);
 
-                database.Pacientes.Remove(paciente);
+                paciente.Status = false;
+
                 database.Save();
             }
         }
@@ -62,18 +64,19 @@ namespace Servicios
         {
             using (var database = new ConexionBD())
             {
-                if(!string.IsNullOrWhiteSpace(apellido))
+                if (!string.IsNullOrWhiteSpace(apellido))
                 {
                     return database
                         .Pacientes
-                        .Include(Paciente => Paciente.Turnos)
-                        .Where(paciente => paciente.Apellido.StartsWith(apellido))
+                        .Include(paciente => paciente.Turnos)
+                        .Where(paciente => paciente.Apellido.StartsWith(apellido) && paciente.Status == true)
                         .ToList();
                 }
 
                 return database
                     .Pacientes
-                    .Include(Paciente => Paciente.Turnos)
+                    .Include(paciente => paciente.Turnos)
+                    .Where(paciente => paciente.Status == true)
                     .ToList();
 
             }

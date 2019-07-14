@@ -33,7 +33,9 @@
                 firstDay: 1,
                 showDropdowns: true,
                 minYear: 1901,
+                minDate: moment().endOf("day"),
                 maxDate: moment().endOf("year"),
+
             }, function (start, end, label) { });
         });
     </script>

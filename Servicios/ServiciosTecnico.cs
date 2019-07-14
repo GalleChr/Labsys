@@ -25,7 +25,8 @@ namespace Servicios
                         Nombre = nombre,
                         Apellido = apellido,
                         FechaNacimiento = fecNac,
-                        Legajo = legajo
+                        Legajo = legajo,
+                        Status = true
                     }
                     );
                 database.Save();
@@ -39,8 +40,10 @@ namespace Servicios
             {
                 var tecnico = database.Tecnicos.Find(id);
 
-                database.Tecnicos.Remove(tecnico);
+                tecnico.Status = false;
+
                 database.Save();
+
             }
         }
 
@@ -68,12 +71,13 @@ namespace Servicios
                 {
                     return database
                         .Tecnicos
-                        .Where(tecnico => tecnico.Apellido.StartsWith(apellido))
+                        .Where(tecnico => tecnico.Apellido.StartsWith(apellido) && tecnico.Status == true)
                         .ToList();
                 }
 
                 return database
                     .Tecnicos
+                    .Where(tecnico => tecnico.Status == true)
                     .ToList();
 
             }

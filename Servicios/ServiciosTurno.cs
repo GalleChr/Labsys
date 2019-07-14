@@ -23,25 +23,34 @@ namespace Servicios
             {
                 Paciente paciente = database.Pacientes.FirstOrDefault(p => p.Dni == dniPac);
 
-                var maxId = database.Tecnicos.Max(x => x.Id);
-
-                Tecnico tecnico = database.Tecnicos.Find(new Random().Next(1, maxId));
-
-                Turno existente = database.Turnos.FirstOrDefault(x => x.Fecha == fecha);
-
-                if (existente == null && paciente != null)
+                if (paciente.Status == true)
                 {
-                    turno = new Turno
+
+                    var maxId = database.Tecnicos.Max(x => x.Id);
+
+                    Tecnico tecnico = database.Tecnicos.Find(new Random().Next(1, maxId));
+
+                    while (tecnico.Status == false)
                     {
-                        Estado = Estado.PENDIENTE,
-                        Paciente = paciente,
-                        Tecnico = tecnico,
-                        Fecha = fecha
-                    };
+                        tecnico = database.Tecnicos.Find(new Random().Next(1, maxId));
+                    }
 
-                    database.Turnos.Add(turno);
+                    Turno existente = database.Turnos.FirstOrDefault(x => x.Fecha == fecha);
 
-                    database.Save();
+                    if (existente == null && paciente != null)
+                    {
+                        turno = new Turno
+                        {
+                            Estado = Estado.PENDIENTE,
+                            Paciente = paciente,
+                            Tecnico = tecnico,
+                            Fecha = fecha
+                        };
+
+                        database.Turnos.Add(turno);
+
+                        database.Save();
+                    }
                 }
             }
 
@@ -70,8 +79,9 @@ namespace Servicios
                 return database
                  .Turnos
 
-                 .Include(Turno => Turno.Paciente)
-                 .Include(Turno => Turno.Tecnico)
+                 .Include(turno => turno.Paciente)
+                 .Include(turno => turno.Tecnico)
+                 .Where(turno => turno.Paciente.Status == true && turno.Tecnico.Status == true)
 
                  .ToList();
 
@@ -92,7 +102,7 @@ namespace Servicios
                     .Include(turno => turno.Paciente)
                     .Include(turno => turno.Tecnico)
 
-                    .Where(turno => turno.Fecha >= fechaInicio && turno.Fecha <= fechaFin)
+                    .Where(turno => turno.Fecha >= fechaInicio && turno.Fecha <= fechaFin && turno.Tecnico.Status == true && turno.Paciente.Status == true)
 
                     .ToList();
             }
@@ -145,7 +155,7 @@ namespace Servicios
                     .Turnos
                     .Include(turno => turno.Paciente)
                     .Include(turno => turno.Tecnico)
-                    .Where(turno => turno.Paciente.Id == id && turno.Estado == Estado.PENDIENTE)
+                    .Where(turno => turno.Paciente.Id == id && turno.Estado == Estado.PENDIENTE && turno.Tecnico.Status == true)
 
                     .ToList();
             }

@@ -22,20 +22,20 @@ namespace Presentacion.ViewModels.Pacientes
             var edad = hoy.Year - paciente.FechaNacimiento.Year;
             if (paciente.FechaNacimiento.Date > hoy.AddYears(-edad)) edad--;
 
-            foreach (Turno turno in paciente.Turnos)
-            {
+            /*         foreach (Turno turno in paciente.Turnos)
+                     {
 
-                if (turno.Estado == Estado.PENDIENTE)
-                {
-                    count++;
-                }
-            }
-
+                         if (turno.Estado == Estado.PENDIENTE)
+                         {
+                             count++;
+                         }
+                     } 
+         */
             Id = paciente.Id;
             ApellidoNombre = $"{paciente.Apellido}, {paciente.Nombre}";
             Dni = paciente.Dni;
             Edad = $"{edad} años ({paciente.FechaNacimiento.ToString("dd/MM/yyyy")})";
-            ContTurnos = count;
+            //ContTurnos = count;
 
         }
     }

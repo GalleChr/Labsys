@@ -81,19 +81,34 @@
                     @using (Html.BeginForm("BuscarEntreFechas", "Turnos", FormMethod.Post))
                     {
                         <fieldset>
-                            <div class="form-group">
+                            @*
+                                <div class="form-group">
 
-                                <label>Fecha de inicio</label>
-                                @Html.TextBox("inicio", "", new { @class = "form-control Fecha" })
+                                    <label>Fecha de inicio:</label>
+                                    @Html.TextBox("inicio", "", new { @class = "form-control Fecha" })
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Fecha de fin:</label>
+                                    @Html.TextBox("fin", "", new { @class = "form-control Fecha" })
+
+                                </div>
+                            *@
+                            <br />
+                            <div class="row justify-content-center">
+                                <div class="col-4 form-group">
+                                    <label>Fecha de inicio:</label>
+                                    @Html.TextBox("inicio", "", new { @class = "form-control Fecha" })
+                                </div>
+                                <div class="col-4 form-group">
+                                    <label>Fecha de fin:</label>
+                                    @Html.TextBox("fin", "", new { @class = "form-control Fecha" })
+                                </div>
                             </div>
 
-                            <div class="form-group">
-                                <label>Fecha de fin</label>
-                                @Html.TextBox("fin", "", new { @class = "form-control Fecha" })
-
-                            </div>
                             <button type="submit" class="btn btn-primary">Buscar</button>
                             <button type="button" class="btn btn-secondary pull-right" onclick="location.href='@Url.Action("Index", "Turnos")'">Volver</button>
+
                         </fieldset>
                     }
                 </div>
@@ -102,6 +117,7 @@
     </div>
 
     <h4 class="text-center mt-sm-2"></h4>
+    <br />
 
     @* Listado *@
 
@@ -139,6 +155,6 @@
     }
     else
     {
-        <div class="alert alert-primary">No se encontraron resultados de estudios clinicos.</div>
+        <div class="alert alert-primary mx-auto text-center">No se encontraron resultados de turnos.</div>
     }
 </div>

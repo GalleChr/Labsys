@@ -8,7 +8,6 @@
 
 <div class="container" id="PacientesContainer">
 
-    <br />
 
     @*Nuevo*@
 
@@ -19,6 +18,8 @@
             </div>
         </div>
     </div>
+
+    <br />
 
     @* Buscador *@
 
@@ -70,7 +71,7 @@
                                 <td>@paciente.Dni</td>
                                 <td>@paciente.Edad</td>
                                 <td>
-                                    @paciente.ContTurnos -<a href="@Url.Action("TurnosPaciente", "Turnos", new { id = paciente.Id })" class="btn btn-link">
+                                    @*   @paciente.ContTurnos -*@<a href="@Url.Action("TurnosPaciente", "Turnos", new { id = paciente.Id })" class="btn btn-link">
                                         <i class="far fa-clock" data-toggle="Ver Turnos" data-placement="top" title="Turnos pendientes"></i>
                                     </a>
                                 </td>

@@ -19,7 +19,8 @@ namespace Presentacion.ViewModels.EstudiosClinicos
         public EstudioClinicoViewItem(EstudioClinico estudioClinico)
         {
             Id = estudioClinico.Id;
-            ApellidoNombre = $"{estudioClinico.Turno.Paciente.Apellido}, {estudioClinico.Turno.Paciente.Nombre}";
+            //    ApellidoNombre = $"{estudioClinico.Turno.Paciente.Apellido}, {estudioClinico.Turno.Paciente.Nombre}";
+            ApellidoNombre = estudioClinico.Turno.Paciente.Nombre + " " + estudioClinico.Turno.Paciente.Apellido;
             Fecha = estudioClinico.Turno.Fecha.ToString("dd/MM/yyyy");
             Tipo = estudioClinico.Secciones.FirstOrDefault().Tipo.Descrip;
             ContSecciones = estudioClinico.Secciones.Count();

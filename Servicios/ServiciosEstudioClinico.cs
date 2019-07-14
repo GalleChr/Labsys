@@ -48,19 +48,6 @@ namespace Servicios
             }
         }
 
-        public IEnumerable<EstudioClinico> ObtenerEstudiosClinicosPorPaciente(int id)
-        {
-            using (var database = new ConexionBD())
-            {
-                return database
-                    .EstudiosClinicos
-                    .Include(ec => ec.Turno)
-                    .Include(ec => ec.Secciones)
-                    .Where(ec => ec.Turno.Paciente.Id == id)
-
-                    .ToList();
-            }
-        }
 
 
         public void AddEstudioClinico(int turnoId, IEnumerable<int> secciones)
@@ -98,10 +85,11 @@ namespace Servicios
                 .EstudiosClinicos
                 .Include(EstudioClinico => EstudioClinico.Secciones)
                 .Include(EstudioClinico => EstudioClinico.Turno)
-                //             .Include(EstudioClinico => EstudioClinico.Turno.Paciente)
-                //             .Include(EstudioClinico => EstudioClinico.Turno.Tecnico)
-                //             .Include(EstudioClinico => EstudioClinico.Secciones.Select(x => x.Tipo))
-                .Where(ec => ec.Turno.Paciente.Id == id && ec.Turno.Estado == Estado.CONFIRMADO)
+                .Include(EstudioClinico => EstudioClinico.Turno.Paciente)
+                .Include(EstudioClinico => EstudioClinico.Turno.Tecnico)
+                .Include(EstudioClinico => EstudioClinico.Secciones.Select(x => x.Tipo))
+                .Where(EstudioClinico => EstudioClinico.Turno.Paciente.Id == id && EstudioClinico.Turno.Estado == Estado.CONFIRMADO)
+
                 .ToList();
             }
         }
