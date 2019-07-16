@@ -15,10 +15,20 @@ namespace Servicios
     {
         public void AddTecnico(long dni, string nombre, string apellido, DateTime fecNac, string legajo)
         {
+            Tecnico tec = null;
 
             using (var database = new ConexionBD())
             {
-                database.Tecnicos
+                tec = database.Tecnicos.FirstOrDefault(x => x.Dni == dni);
+
+                if (tec != null)
+                {
+                    throw new Exception("Ya existe un tecnico con el Dni ingresado.");
+
+                }
+                else
+                {
+                    database.Tecnicos
                     .AddOrUpdate(new Dominio.Tecnico()
                     {
                         Dni = dni,
@@ -29,7 +39,8 @@ namespace Servicios
                         Status = true
                     }
                     );
-                database.Save();
+                    database.Save();
+                }
             }
 
         }

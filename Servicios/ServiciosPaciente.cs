@@ -15,20 +15,31 @@ namespace Servicios
     {
         public void AddPaciente(long dni, string nombre, string apellido, DateTime fecNac)
         {
+            Paciente pac = null;
 
             using (var database = new ConexionBD())
             {
-                database.Pacientes
-                    .Add(new Paciente()
-                    {
-                        Dni = dni,
-                        Nombre = nombre,
-                        Apellido = apellido,
-                        FechaNacimiento = fecNac,
-                        Status = true
-                    }
-                    );
-                database.Save();
+                pac = database.Pacientes.FirstOrDefault(x => x.Dni == dni);
+
+                if (pac != null)
+                {
+                    throw new Exception("Ya existe un paciente con el Dni ingresado.");
+
+                }
+                else
+                {
+                    database.Pacientes
+                  .Add(new Paciente()
+                  {
+                      Dni = dni,
+                      Nombre = nombre,
+                      Apellido = apellido,
+                      FechaNacimiento = fecNac,
+                      Status = true
+                  }
+                  );
+                    database.Save();
+                }
             }
 
         }

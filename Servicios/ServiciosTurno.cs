@@ -23,7 +23,7 @@ namespace Servicios
             {
                 Paciente paciente = database.Pacientes.FirstOrDefault(p => p.Dni == dniPac);
 
-                if (paciente.Status == true)
+                if (paciente != null && paciente.Status == true)
                 {
 
                     var maxId = database.Tecnicos.Max(x => x.Id);
@@ -37,7 +37,7 @@ namespace Servicios
 
                     Turno existente = database.Turnos.FirstOrDefault(x => x.Fecha == fecha);
 
-                    if (existente == null && paciente != null)
+                    if (existente == null)
                     {
                         turno = new Turno
                         {
@@ -51,6 +51,14 @@ namespace Servicios
 
                         database.Save();
                     }
+                    else
+                    {
+                        throw new Exception("Ya existe un turno en el dia seleccionado.");
+                    }
+                }
+                else
+                {
+                    throw new Exception("El paciente no existe o fue deshabilitado.");
                 }
             }
 
